@@ -136,7 +136,110 @@
   </div>
 </section>
 
-<!--WORLD:apptimelock-->
+<!-- ========================================================
+     APPTIMELOCK: a time limit counting down
+     ======================================================== -->
+<section class="w-atl" id="apptimelock" aria-labelledby="atl-title">
+  <div class="atl-head">
+    <div class="atl-name">
+      <img class="atl-icon" src="assets/icons/apptimelock.png" alt="" width="256" height="256">
+      <p class="atl-meta">My own app <span>2026 to now</span> <span>iPhone and iPad</span> <span>9 languages</span></p>
+      <h2 id="atl-title">AppTimeLock</h2>
+    </div>
+    <div class="atl-about">
+      <p class="atl-lede">My own Screen Time app blocker, fully on-device with no account. The hard part was the wait-to-open gate: Apple's Shield extensions allow no timers or custom UI, so I built it from shield-button taps that write state across processes.</p>
+      <ul class="chips"><li>SwiftUI</li><li>FamilyControls</li><li>ManagedSettings</li><li>DeviceActivity</li><li>App Groups</li><li>StoreKit</li><li>RevenueCat</li><li>Swift Charts</li><li>fastlane</li></ul>
+      <p class="atl-links"><a href="https://apps.apple.com/us/app/apptimelock-block-apps/id6779263879" rel="noopener">AppTimeLock on the App Store</a> <a href="https://apptimelock.com" rel="noopener">apptimelock.com</a></p>
+    </div>
+  </div>
+
+  <div class="atl-track">
+    <div class="atl-stage">
+      <div class="atl-bar">
+        <nav class="atl-modes glass" aria-label="Lock types">
+          <a href="#atl-limit" data-go="0">Time limit</a>
+          <a href="#atl-wait" data-go="1">Make me wait</a>
+          <a href="#atl-always" data-go="2">Always locked</a>
+          <a href="#atl-always" data-go="2">On a schedule</a>
+        </nav>
+        <div class="atl-rail" aria-hidden="true"><i></i><b></b><b></b><b></b><b></b><b></b><b></b></div>
+      </div>
+
+      <ol class="atl-stops">
+        <li class="atl-stop" id="atl-limit">
+          <p class="atl-k">Time you get</p>
+          <p class="atl-n"><b data-atl-num>30</b><span>min</span></p>
+          <div class="atl-copy">
+            <h3>Time limit</h3>
+            <p><strong>Your app gets 30 minutes. Then it locks.</strong> Pick 5 to 240 minutes a day. After that it stays locked for 15 minutes to 12 hours, then refills.</p>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/02-time-limit.jpg" alt="AppTimeLock time limit screen: You choose how long. Time you get, 30 min, then it locks for 15 min." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="atl-stop" id="atl-wait" data-atl-wait>
+          <p class="atl-k">Open in</p>
+          <p class="atl-n"><b data-atl-num>0:10</b></p>
+          <div class="atl-copy">
+            <h3>Make me wait</h3>
+            <p><strong>Or make yourself wait.</strong> Every open starts a wait. Sit through it to earn a Pass, and each Pass makes the next wait longer.</p>
+            <button type="button" class="atl-close">Close</button>
+            <p class="atl-status" aria-live="polite">Close is the easy button.</p>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/03-make-me-wait.jpg" alt="Make me wait shield: Take a breath, with the reason You said, Checking one message, a Close button and Open in 10s." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="atl-stop" id="atl-always">
+          <p class="atl-k">Always locked</p>
+          <p class="atl-n"><b data-atl-num>24/7</b></p>
+          <div class="atl-copy">
+            <h3>Always locked, or on a schedule</h3>
+            <p><strong>Lock it at night. Or all the time.</strong> Always locked keeps it shut. On a schedule locks it only at the times you set.</p>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/05-lock-modes.jpg" alt="Lock types: Time limit, Always locked and On a schedule." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="atl-stop" id="atl-stats">
+          <p class="atl-k">Today</p>
+          <p class="atl-n"><b data-atl-num>8</b><span class="atl-unit-long">times it stopped you</span></p>
+          <div class="atl-copy">
+            <h3>Streaks and a Sunday recap</h3>
+            <p><strong>See how often it stopped you.</strong> A streak, the times it stopped you, and a recap every Sunday.</p>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/04-home-stats.jpg" alt="AppTimeLock home: 8 times it stopped you today, a 9 day streak and 36 h locked this week." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="atl-stop" id="atl-strict">
+          <p class="atl-k">Unlocks in</p>
+          <p class="atl-n"><b data-atl-num>4:26</b></p>
+          <div class="atl-copy">
+            <h3>Strict Mode</h3>
+            <p><strong>Strict Mode, for weak moments.</strong> Removing a lock waits out a timer first. You can cancel the unlock, but you can't skip the wait.</p>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/06-strict-mode.jpg" alt="Strict Mode: Unlocks in 4:23, your locks stay on until then, with a Cancel unlock button." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="atl-stop atl-end" id="atl-locked">
+          <p class="atl-k">Locked</p>
+          <p class="atl-n"><b data-atl-num>0:00</b></p>
+          <svg class="atl-padlock" viewBox="0 0 64 76" aria-hidden="true" focusable="false">
+            <path class="atl-shackle" d="M17 36V22a15 15 0 0 1 30 0v14" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+            <rect x="6" y="33" width="52" height="40" rx="9" fill="#fff"/>
+            <circle cx="32" cy="49" r="4.6" fill="#000"/>
+            <rect x="29.7" y="50" width="4.6" height="11" rx="2.3" fill="#000"/>
+          </svg>
+          <div class="atl-copy atl-sheet">
+            <img src="assets/icons/apptimelock.png" alt="" width="256" height="256" loading="lazy">
+            <h3>AppTimeLock: Block Apps</h3>
+            <p>Time's up. It's on the App Store for iPhone and iPad, on iOS 18 and later.</p>
+            <a class="atl-get" href="https://apps.apple.com/us/app/apptimelock-block-apps/id6779263879" rel="noopener">View on the App Store</a>
+            <a class="atl-site" href="https://apptimelock.com" rel="noopener">apptimelock.com</a>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/01-lock-shield.jpg" alt="The AppTimeLock shield over a locked app: That's your 30 minutes. It opens again soon." width="736" height="1600" loading="lazy"></figure>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
 <!-- ========================================================
      SYDTRANSPORT: one trip, on board
      ======================================================== -->
@@ -286,7 +389,153 @@
     <figcaption>End of the line. Thanks for riding with me.</figcaption>
   </figure>
 </section>
-<!--WORLD:sgtransport-->
+<!-- ========================================================
+     SGTRANSPORT: the bus is coming
+     ======================================================== -->
+<section class="w-sgt" id="sgtransport" aria-labelledby="sgt-title">
+  <div class="sgt-run">
+    <div class="sgt-stage">
+      <div class="sgt-flood" aria-hidden="true"></div>
+
+      <header class="sgt-top">
+        <div class="sgt-app">
+          <img src="assets/icons/sgtransport.png" alt="" width="256" height="256">
+          <div><h2 id="sgt-title">SGTransport</h2><p class="sgt-sub">My own app · iOS and Android</p></div>
+        </div>
+        <p class="sgt-status"><i aria-hidden="true"></i>In testing</p>
+      </header>
+
+      <div class="sgt-countbox" aria-hidden="true">
+        <div class="sgt-count">
+          <div class="sgt-face sgt-face-a"><div class="sgt-reel"><span class="sgt-v">6<small>MIN</small></span><span class="sgt-v">5<small>MIN</small></span><span class="sgt-v">4<small>MIN</small></span><span class="sgt-v">3<small>MIN</small></span><span class="sgt-v">2<small>MIN</small></span><span class="sgt-v">1<small>MIN</small></span><span class="sgt-v"><b>Arr</b></span></div></div>
+          <div class="sgt-face sgt-face-b"><div class="sgt-reel"><span class="sgt-v">6<small>MIN</small></span><span class="sgt-v">5<small>MIN</small></span><span class="sgt-v">4<small>MIN</small></span><span class="sgt-v">3<small>MIN</small></span><span class="sgt-v">2<small>MIN</small></span><span class="sgt-v">1<small>MIN</small></span><span class="sgt-v"><b>Arr</b></span></div></div>
+        </div>
+      </div>
+
+      <div class="sgt-sheetbg" aria-hidden="true"></div>
+
+      <ol class="sgt-steps">
+        <li class="sgt-step" style="--bg:#B78CF7;--ink:#170B29">
+          <p class="sgt-row"><b class="sgt-svc">87</b><span class="sgt-to" aria-hidden="true">→</span><span class="visually-hidden">to</span> Compassvale Int</p>
+          <p class="sgt-num"><b>6</b> min</p>
+          <ul class="sgt-meta">
+            <li class="sgt-live"><i aria-hidden="true"></i>Live · 8:16</li>
+            <li class="sgt-load" data-l="2"><span aria-hidden="true"><i></i><i></i><i></i></span>Standing available</li>
+            <li class="sgt-tag">Wheelchair</li>
+            <li class="sgt-tag">Double deck</li>
+          </ul>
+          <div class="sgt-say">
+            <h3>Every bus stop in Singapore. Live.</h3>
+            <p>My own app. Live arrivals for all 5,210 stops from LTA DataMall, with live times kept apart from scheduled ones.</p>
+            <p class="sgt-acts"><span class="sgt-pill">Follow it on the map</span></p>
+          </div>
+          <figure class="sgt-shot"><img src="assets/sgtransport/stop.jpg" alt="SGTransport stop screen in purple: bus 87 to Compassvale Int in 6 min, live, standing available, wheelchair and double deck." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="sgt-step" style="--bg:#FF6B6B;--ink:#0B0E13">
+          <p class="sgt-row"><b class="sgt-svc">67</b><span class="sgt-to" aria-hidden="true">→</span><span class="visually-hidden">to</span> Tampines Int</p>
+          <p class="sgt-num"><b>5</b> min</p>
+          <ul class="sgt-meta">
+            <li class="sgt-live"><i aria-hidden="true"></i>Live · then 7, 12</li>
+            <li class="sgt-load" data-l="1"><span aria-hidden="true"><i></i><i></i><i></i></span>Seats available</li>
+          </ul>
+          <div class="sgt-say">
+            <h3>What's leaving near me</h3>
+            <p>Nearby opens on a map of the stops around me and the buses about to leave them. Saved, Alerts and Search are the other tabs.</p>
+          </div>
+          <figure class="sgt-shot"><img src="assets/sgtransport/nearby.jpg" alt="Nearby tab: a dark map above the buses leaving the stops around me, each with its minutes to arrival." width="921" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="sgt-step" style="--bg:#7CCB4E;--ink:#0B0E13">
+          <p class="sgt-row"><b class="sgt-svc">14</b><span class="sgt-to" aria-hidden="true">→</span><span class="visually-hidden">to</span> Blk 403</p>
+          <p class="sgt-num"><b>4</b> min</p>
+          <ul class="sgt-meta">
+            <li class="sgt-live"><i aria-hidden="true"></i>Live</li>
+            <li class="sgt-load" data-l="3"><span aria-hidden="true"><i></i><i></i><i></i></span>Limited standing</li>
+          </ul>
+          <div class="sgt-say">
+            <h3>Get off at the right stop</h3>
+            <p>“Tap a stop after yours to get off there.” Then the app follows my ride by GPS and buzzes one stop before.</p>
+            <p class="sgt-acts"><span class="sgt-pill sgt-pill-line">Buzz me when it's 2 min away</span><span class="sgt-pill">Get off at Blk 403</span></p>
+          </div>
+          <figure class="sgt-shot"><img src="assets/sgtransport/route-get-off.jpg" alt="Route 14 on the map with its stops listed below, Blk 403 picked and a Get off at Blk 403 button." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="sgt-step" style="--bg:#FF9445;--ink:#0B0E13">
+          <p class="sgt-row"><b class="sgt-svc">14</b> Bedok Int <span class="sgt-saved">Saved</span></p>
+          <p class="sgt-num"><b>3</b> min</p>
+          <ul class="sgt-meta">
+            <li class="sgt-live"><i aria-hidden="true"></i>Live</li>
+            <li class="sgt-load" data-l="1"><span aria-hidden="true"><i></i><i></i><i></i></span>Seats available</li>
+          </ul>
+          <div class="sgt-say">
+            <p class="sgt-card"><span>Saved</span><b>LEAVE IN 2 MIN</b></p>
+            <h3>Leave on time</h3>
+            <p>Saved stops tell me when to head out. The Next bus and Saved widgets put the countdown on my home screen.</p>
+          </div>
+          <figure class="sgt-shot"><img src="assets/sgtransport/widgets.jpg" alt="Home screen with the Next bus widget showing bus 14 in 4 min and the Saved widget listing two buses." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="sgt-step sgt-step-alert" style="--bg:#0B0E13;--ink:#F4F6F8">
+          <p class="sgt-row sgt-band"><b class="sgt-disrupted">DISRUPTED</b><span class="sgt-line" style="--l:#009645">EW</span> East West Line</p>
+          <p class="sgt-num"><b>2</b> min</p>
+          <ul class="sgt-meta sgt-lines">
+            <li class="sgt-lines-k">Running normally</li>
+            <li class="sgt-line" style="--l:#D42E12">NS</li>
+            <li class="sgt-line" style="--l:#9900AA">NE</li>
+            <li class="sgt-line sgt-line-dark" style="--l:#FA9E0D">CC</li>
+            <li class="sgt-line" style="--l:#005EC4">DT</li>
+            <li class="sgt-line" style="--l:#9D5B25">TE</li>
+          </ul>
+          <div class="sgt-say">
+            <h3>When the MRT breaks down</h3>
+            <p>Alerts shows DISRUPTED or “All lines running normally”, with the line chips and the free buses to take instead.</p>
+          </div>
+          <figure class="sgt-shot"><img src="assets/sgtransport/alerts.jpg" alt="Alerts tab with an amber DISRUPTED header, a free bus note for the East West Line and the other lines running normally." width="893" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="sgt-step" style="--bg:#005EC4;--ink:#FFFFFF">
+          <p class="sgt-row"><b class="sgt-svc sgt-svc-wide">Last buses tonight</b> Miss it?</p>
+          <p class="sgt-num"><b>1</b> min</p>
+          <ul class="sgt-meta">
+            <li class="sgt-tag">English</li>
+            <li class="sgt-tag" lang="zh-Hans">简体中文</li>
+          </ul>
+          <div class="sgt-say">
+            <h3>Late at night</h3>
+            <p>It shows the last buses tonight, before I miss them. Every screen comes in English and Simplified Chinese.</p>
+          </div>
+          <figure class="sgt-shot"><img src="assets/sgtransport/onboarding.jpg" alt="Onboarding screen: coloured MRT lines meeting at one stop, above the words Every stop in Singapore. Live." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="sgt-step" style="--bg:#3DDC97;--ink:#0B0E13">
+          <p class="sgt-row"><b class="sgt-svc">14</b> Next: Blk 85</p>
+          <p class="sgt-num"><b>Arr</b>, arriving</p>
+          <ul class="sgt-meta">
+            <li class="sgt-live"><i aria-hidden="true"></i>Live · 5 stops to go</li>
+          </ul>
+          <div class="sgt-say">
+            <h3>On the lock screen</h3>
+            <p>The ride stays on my lock screen as a Live Activity, and in the Dynamic Island. It and the widgets are native SwiftUI, driven from React.</p>
+          </div>
+          <figure class="sgt-shot"><img src="assets/sgtransport/live-activity.jpg" alt="Lock screen with a Live Activity for bus 14: next stop Blk 85, 5 stops to go." width="736" height="1600" loading="lazy"></figure>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="sgt-end">
+    <p class="sgt-hero">Every stop in Singapore. <span>Live.</span></p>
+    <div class="sgt-end-body">
+      <p class="sgt-soon"><img src="assets/sgtransport/icon.png" alt="" width="1024" height="1024" loading="lazy"><span><b>Coming soon</b> In testing, on its way to TestFlight</span></p>
+      <p>Built with Expo and React Native, using Expo Router, for iOS and Android. Search works offline on a bundled SQLite database that a GitHub Action refreshes every week.</p>
+      <ul class="chips">
+        <li>Expo SDK</li><li>React Native</li><li>Expo Router</li><li>SwiftUI</li><li>SQLite FTS5 + R*Tree</li><li>MapLibre</li><li>Reanimated</li><li>Skia</li><li>Jest</li><li>Maestro</li>
+      </ul>
+      <p class="sgt-fine">84 Jest test files and Maestro end-to-end tests. Screens are simulator captures with replayed data.</p>
+    </div>
+  </div>
+</section>
 
 <!-- ========================================================
      HI EUREKA: a conversation

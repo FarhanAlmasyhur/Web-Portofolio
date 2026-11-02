@@ -1,0 +1,101 @@
+<section class="w-atl" id="apptimelock" aria-labelledby="atl-title">
+  <div class="atl-head">
+    <div class="atl-name">
+      <img class="atl-icon" src="assets/icons/apptimelock.png" alt="" width="256" height="256">
+      <p class="atl-meta">My own app <span>2026 to now</span> <span>iPhone and iPad</span> <span>9 languages</span></p>
+      <h2 id="atl-title">AppTimeLock</h2>
+    </div>
+    <div class="atl-about">
+      <p class="atl-lede">My own Screen Time app blocker, fully on-device with no account. The hard part was the wait-to-open gate: Apple's Shield extensions allow no timers or custom UI, so I built it from shield-button taps that write state across processes.</p>
+      <ul class="chips"><li>SwiftUI</li><li>FamilyControls</li><li>ManagedSettings</li><li>DeviceActivity</li><li>App Groups</li><li>StoreKit</li><li>RevenueCat</li><li>Swift Charts</li><li>fastlane</li></ul>
+      <p class="atl-links"><a href="https://apps.apple.com/us/app/apptimelock-block-apps/id6779263879" rel="noopener">AppTimeLock on the App Store</a> <a href="https://apptimelock.com" rel="noopener">apptimelock.com</a></p>
+    </div>
+  </div>
+
+  <div class="atl-track">
+    <div class="atl-stage">
+      <div class="atl-bar">
+        <nav class="atl-modes glass" aria-label="Lock types">
+          <a href="#atl-limit" data-go="0">Time limit</a>
+          <a href="#atl-wait" data-go="1">Make me wait</a>
+          <a href="#atl-always" data-go="2">Always locked</a>
+          <a href="#atl-always" data-go="2">On a schedule</a>
+        </nav>
+        <div class="atl-rail" aria-hidden="true"><i></i><b></b><b></b><b></b><b></b><b></b><b></b></div>
+      </div>
+
+      <ol class="atl-stops">
+        <li class="atl-stop" id="atl-limit">
+          <p class="atl-k">Time you get</p>
+          <p class="atl-n"><b data-atl-num>30</b><span>min</span></p>
+          <div class="atl-copy">
+            <h3>Time limit</h3>
+            <p><strong>Your app gets 30 minutes. Then it locks.</strong> Pick 5 to 240 minutes a day. After that it stays locked for 15 minutes to 12 hours, then refills.</p>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/02-time-limit.jpg" alt="AppTimeLock time limit screen: You choose how long. Time you get, 30 min, then it locks for 15 min." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="atl-stop" id="atl-wait" data-atl-wait>
+          <p class="atl-k">Open in</p>
+          <p class="atl-n"><b data-atl-num>0:10</b></p>
+          <div class="atl-copy">
+            <h3>Make me wait</h3>
+            <p><strong>Or make yourself wait.</strong> Every open starts a wait. Sit through it to earn a Pass, and each Pass makes the next wait longer.</p>
+            <button type="button" class="atl-close">Close</button>
+            <p class="atl-status" aria-live="polite">Close is the easy button.</p>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/03-make-me-wait.jpg" alt="Make me wait shield: Take a breath, with the reason You said, Checking one message, a Close button and Open in 10s." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="atl-stop" id="atl-always">
+          <p class="atl-k">Always locked</p>
+          <p class="atl-n"><b data-atl-num>24/7</b></p>
+          <div class="atl-copy">
+            <h3>Always locked, or on a schedule</h3>
+            <p><strong>Lock it at night. Or all the time.</strong> Always locked keeps it shut. On a schedule locks it only at the times you set.</p>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/05-lock-modes.jpg" alt="Lock types: Time limit, Always locked and On a schedule." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="atl-stop" id="atl-stats">
+          <p class="atl-k">Today</p>
+          <p class="atl-n"><b data-atl-num>8</b><span class="atl-unit-long">times it stopped you</span></p>
+          <div class="atl-copy">
+            <h3>Streaks and a Sunday recap</h3>
+            <p><strong>See how often it stopped you.</strong> A streak, the times it stopped you, and a recap every Sunday.</p>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/04-home-stats.jpg" alt="AppTimeLock home: 8 times it stopped you today, a 9 day streak and 36 h locked this week." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="atl-stop" id="atl-strict">
+          <p class="atl-k">Unlocks in</p>
+          <p class="atl-n"><b data-atl-num>4:26</b></p>
+          <div class="atl-copy">
+            <h3>Strict Mode</h3>
+            <p><strong>Strict Mode, for weak moments.</strong> Removing a lock waits out a timer first. You can cancel the unlock, but you can't skip the wait.</p>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/06-strict-mode.jpg" alt="Strict Mode: Unlocks in 4:23, your locks stay on until then, with a Cancel unlock button." width="736" height="1600" loading="lazy"></figure>
+        </li>
+
+        <li class="atl-stop atl-end" id="atl-locked">
+          <p class="atl-k">Locked</p>
+          <p class="atl-n"><b data-atl-num>0:00</b></p>
+          <svg class="atl-padlock" viewBox="0 0 64 76" aria-hidden="true" focusable="false">
+            <path class="atl-shackle" d="M17 36V22a15 15 0 0 1 30 0v14" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+            <rect x="6" y="33" width="52" height="40" rx="9" fill="#fff"/>
+            <circle cx="32" cy="49" r="4.6" fill="#000"/>
+            <rect x="29.7" y="50" width="4.6" height="11" rx="2.3" fill="#000"/>
+          </svg>
+          <div class="atl-copy atl-sheet">
+            <img src="assets/icons/apptimelock.png" alt="" width="256" height="256" loading="lazy">
+            <h3>AppTimeLock: Block Apps</h3>
+            <p>Time's up. It's on the App Store for iPhone and iPad, on iOS 18 and later.</p>
+            <a class="atl-get" href="https://apps.apple.com/us/app/apptimelock-block-apps/id6779263879" rel="noopener">View on the App Store</a>
+            <a class="atl-site" href="https://apptimelock.com" rel="noopener">apptimelock.com</a>
+          </div>
+          <figure class="atl-shot"><img src="assets/apptimelock/01-lock-shield.jpg" alt="The AppTimeLock shield over a locked app: That's your 30 minutes. It opens again soon." width="736" height="1600" loading="lazy"></figure>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
