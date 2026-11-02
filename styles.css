@@ -510,7 +510,7 @@ html:not(.js) .pm-scan { overflow-x: auto; }
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  background: url("assets/icons/eureka.png") center / cover;
+  background: url("assets/icons/eureka.webp") center / cover;
   box-shadow: 0 4px 0 rgba(11, 37, 69, .2);
 }
 .bot > p { background: #1e518a; color: #fff; border-radius: 26px 26px 26px 8px; }
@@ -779,7 +779,7 @@ html:not(.js) .pm-scan { overflow-x: auto; }
 .lc-back {
   transform: rotateY(180deg);
   background:
-    url("assets/icons/luckycharm.png") center / 38% no-repeat,
+    url("assets/icons/luckycharm.webp") center / 38% no-repeat,
     radial-gradient(circle at center, transparent 30%, rgba(238,208,26,.14) 31% 32%, transparent 33%),
     repeating-conic-gradient(from 0deg, #1d1d1d 0 15deg, #241f14 15deg 30deg);
   box-shadow: inset 0 0 0 6px #1d1d1d, inset 0 0 0 8px #eed01a, 0 24px 50px -20px rgba(0,0,0,.7);
