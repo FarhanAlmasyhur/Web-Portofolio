@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Muhammad Farhan Almasyhur, iOS engineer</title>
+<meta name="description" content="Muhammad Farhan Almasyhur is an iOS engineer in Singapore. Profometer, Hi Eureka, Stellkey, Lucky Charm and Unibuzz: apps for structural engineers, kids, families, stargazers and students.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Muhammad Farhan Almasyhur, iOS engineer">
+<meta property="og:description" content="One screen, five worlds. The apps I've built, from concrete scanners to a kids' AI.">
+<meta property="og:image" content="assets/eureka/eureka-hero-screens-collage.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Muhammad Farhan Almasyhur",
+  "jobTitle": "iOS Development Engineer",
+  "worksFor": { "@type": "Organization", "name": "Screening Eagle Dreamlab" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Singapore" },
+  "alumniOf": "Universitas Indonesia",
+  "email": "mailto:farhan.almasyhur@gmail.com",
+  "sameAs": ["https://www.linkedin.com/in/farhanalmasyhur"]
+}
+</script>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<!-- The stage: one screen that every project passes through -->
+<div class="stage" aria-hidden="true">
+  <div class="giants"></div>
+  <div class="device">
+    <div class="screen"></div>
+  </div>
+  <p class="caption"></p>
+</div>
+
+<main class="worlds">
+
+  <section class="world" id="home"
+    data-device="phone" data-bg="#e6e8eb" data-fg="#14171b" data-accent="#14171b"
+    data-bg-dark="#121417" data-fg-dark="#e8eaed" data-accent-dark="#e8eaed"
+    data-type="800 0.4 0 0" data-giant="Farhan" data-len="1.2">
+    <div class="copy">
+      <h1 class="title">Muhammad Farhan Almasyhur</h1>
+      <p class="lede">iOS engineer in Singapore. Five apps so far, for structural engineers, kids, families, stargazers and university students.</p>
+      <p class="nudge">Scroll to open each one, or tap an icon.</p>
+    </div>
+    <div class="reel">
+      <div class="home-screen" data-caption="">
+        <div class="hs-status"><span>9:41</span><span class="hs-bars"></span></div>
+        <ul class="hs-grid">
+          <li><a href="#profometer"><img src="../assets/profometer/pm-app-icon.png" alt="" width="120" height="120"><span>Profometer</span></a></li>
+          <li><a href="#eureka"><img src="../assets/eureka/eureka-icon.png" alt="" width="120" height="120"><span>Hi Eureka</span></a></li>
+          <li><a href="#stellkey"><img src="../assets/stellkey/stellkey-icon.png" alt="" width="120" height="120"><span>Stellkey</span></a></li>
+          <li><a href="#luckycharm"><img src="../assets/luckycharm/luckycharm-icon.png" alt="" width="120" height="120"><span>Lucky Charm</span></a></li>
+          <li><a href="#unibuzz"><img src="../assets/unibuzz/unibuzz-icon.jpg" alt="" width="120" height="120"><span>Unibuzz</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="world" id="profometer"
+    data-device="ipad" data-bg="#101414" data-fg="#e9eeec" data-accent="#b9cb3b"
+    data-type="720 0 1 0" data-giant="Profometer">
+    <div class="copy">
+      <p class="meta">Screening Eagle Dreamlab<br>2025 to now, iPad</p>
+      <h2 class="name">Profometer</h2>
+      <p>The iPad app for concrete scanners. A probe finds the steel inside a slab, or maps where it's corroding, and the app draws it live over Bluetooth.</p>
+      <dl class="facts">
+        <div><dt>zoom, up from 8×</dt><dd>200×</dd></div>
+        <div><dt>less memory</dt><dd>−75%</dd></div>
+        <div><dt>countries</dt><dd>20+</dd></div>
+      </dl>
+      <ul class="stack"><li>UIKit</li><li>Core Graphics</li><li>CoreBluetooth</li><li>ReSwift</li></ul>
+      <p class="out"><a href="https://apps.apple.com/us/app/profometer/id1638693429" rel="noopener">Profometer on the App Store</a></p>
+    </div>
+    <div class="reel">
+      <figure data-caption="Signal strength. This is the view I took from 8× to 200× zoom.">
+        <img src="../assets/profometer/pm8000-ipad-signal-strength.jpg" alt="Profometer signal-strength view: a waveform with a peak for every rebar the probe crosses." width="1800" height="1334" loading="lazy">
+      </figure>
+      <figure data-caption="Line scan: every bar, and how deep it sits.">
+        <img src="../assets/profometer/pm8000-ipad-linescan.jpg" alt="Profometer line scan with each rebar coloured by its cover depth." width="1800" height="1334" loading="lazy">
+      </figure>
+      <figure data-caption="An area scan, then its statistics.">
+        <video src="../assets/profometer/pm8000-areascan-grid.mp4" data-crop style="--crop:1.12" muted loop playsinline preload="none" aria-label="A rebar grid being drawn during an area scan."></video>
+      </figure>
+      <figure data-caption="PM8500: a corrosion map, cell by cell.">
+        <img src="../assets/profometer/pm8500-screen-corrosion-map.jpg" alt="PM8500 corrosion map with potential readings in a green, yellow and red grid." width="1370" height="1028" loading="lazy">
+      </figure>
+      <figure data-caption="PM8500: the same slab as a potential gradient.">
+        <img src="../assets/profometer/pm8500-screen-gradient-map.jpg" alt="PM8500 corrosion potential gradient map in blues, greens and purples." width="1644" height="1264" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <section class="world" id="eureka"
+    data-device="phone" data-bg="#4ea3f6" data-fg="#0b2545" data-accent="#ffd529"
+    data-type="900 1 0 0" data-giant="Hi Eureka">
+    <div class="copy">
+      <p class="meta">Mediatropy<br>2023 to 2024, iPhone and iPad</p>
+      <h2 class="name">Hi Eureka</h2>
+      <p>An AI that children can ask anything, out loud. I built it from an empty project to the App Store.</p>
+      <dl class="facts">
+        <div><dt>App Store rating</dt><dd>4.7★</dd></div>
+        <div><dt>languages</dt><dd>6</dd></div>
+      </dl>
+      <ul class="stack"><li>SwiftUI</li><li>MVVM-Clean</li><li>Voice</li></ul>
+      <p class="out"><a href="https://apps.apple.com/us/app/hi-eureka-kids-ai-learning/id1671082808" rel="noopener">Hi Eureka on the App Store</a></p>
+    </div>
+    <div class="reel">
+      <figure data-caption="Ask anything, by voice.">
+        <video src="../assets/eureka/eureka-video-chat.mp4" muted loop playsinline preload="none" aria-label="A child chatting with the Eureka robot."></video>
+      </figure>
+      <figure data-caption="Listening.">
+        <img src="../assets/eureka/eureka-screen-listening.jpg" alt="Hi Eureka listening screen with the robot mascot and a microphone button." width="740" height="1600" loading="lazy">
+      </figure>
+      <figure data-caption="Quizzes that earn stars.">
+        <video src="../assets/eureka/eureka-video-quiz.mp4" muted loop playsinline preload="none" aria-label="A quiz round in Hi Eureka."></video>
+      </figure>
+      <figure data-caption="Exploring a topic.">
+        <video src="../assets/eureka/eureka-video-explore-topic.mp4" muted loop playsinline preload="none" aria-label="Browsing a topic in Hi Eureka."></video>
+      </figure>
+    </div>
+  </section>
+
+  <section class="world" id="stellkey"
+    data-device="phone" data-bg="#5d17eb" data-fg="#ffffff" data-accent="#ebcf65"
+    data-type="1000 1 0 -6" data-giant="Stellkey">
+    <div class="copy">
+      <p class="meta">Mediatropy<br>2022 to 2024, iPhone</p>
+      <h2 class="name">Stellkey</h2>
+      <p>Chores and good habits for kids, rewarded by a star called Stell, with its own side for parents. I built new features and fixed critical bugs.</p>
+      <p class="out"><a href="https://apps.apple.com/us/app/stellkey-chores-tracker/id1591228817" rel="noopener">Stellkey on the App Store</a></p>
+    </div>
+    <div class="reel">
+      <figure data-caption="Today's tasks, and Stell's happy meter.">
+        <img src="../assets/stellkey/stellkey-screen-kid-tasks.jpg" alt="Stellkey kid view: the Stell star mascot, a happy meter and today's tasks." width="520" height="1125" loading="lazy">
+      </figure>
+      <figure data-caption="Onboarding for parents.">
+        <video src="../assets/stellkey/stellkey-video-1.mp4" muted loop playsinline preload="none" aria-label="The Stellkey parent onboarding flow."></video>
+      </figure>
+      <figure data-caption="The journey map.">
+        <img src="../assets/stellkey/stellkey-screen-journey-map.jpg" alt="Stellkey journey map with numbered levels across a starry sky." width="520" height="1124" loading="lazy">
+      </figure>
+      <figure data-caption="The parents' dashboard.">
+        <img src="../assets/stellkey/stellkey-screen-parent-dashboard.jpg" alt="Stellkey parent dashboard." width="563" height="1218" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <section class="world" id="luckycharm"
+    data-device="poster" data-bg="#e8b737" data-fg="#1d1d1d" data-accent="#1d1d1d"
+    data-type="820 0.6 0 -15" data-giant="Lucky Charm">
+    <div class="copy">
+      <p class="meta">Mediatropy<br>2022 to 2023, iPhone</p>
+      <h2 class="name">Lucky Charm</h2>
+      <p>Daily horoscopes, numerology and a lucky number that changes every 30 seconds. It arrived barely usable, and I rebuilt it into a working app.</p>
+      <ul class="stack"><li>RxSwift</li><li>MVVM-Clean</li><li>XIB</li></ul>
+      <p class="out"><a href="https://apps.apple.com/us/app/lucky-charm-daily-horoscope/id1498629277" rel="noopener">Lucky Charm on the App Store</a></p>
+    </div>
+    <div class="reel">
+      <figure data-caption="" data-bg="#e8b737" data-fg="#1d1d1d">
+        <img src="../assets/luckycharm/luckycharm-appstore-1-lucky-number.jpg" alt="Lucky Charm: lucky number predictions with a fortune cat." width="900" height="1600" loading="lazy">
+      </figure>
+      <figure data-caption="" data-bg="#832eb0" data-fg="#ffffff">
+        <img src="../assets/luckycharm/luckycharm-appstore-2-horoscope.jpg" alt="Lucky Charm: the daily horoscope." width="900" height="1600" loading="lazy">
+      </figure>
+      <figure data-caption="" data-bg="#2eb08a" data-fg="#0d1f19">
+        <img src="../assets/luckycharm/luckycharm-appstore-3-charms-list.jpg" alt="Lucky Charm: the list of charms." width="900" height="1600" loading="lazy">
+      </figure>
+      <figure data-caption="" data-bg="#df4078" data-fg="#1a0710">
+        <img src="../assets/luckycharm/luckycharm-appstore-4-choose-charm.jpg" alt="Lucky Charm: choosing a charm." width="900" height="1600" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <section class="world" id="unibuzz"
+    data-device="phone" data-bg="#ffea8f" data-fg="#222222" data-accent="#222222"
+    data-type="900 0.8 0 0" data-giant="Unibuzz">
+    <div class="copy">
+      <p class="meta">Technical lead<br>2022, iPhone</p>
+      <h2 class="name">Unibuzz</h2>
+      <p>An anonymous forum for university students, where friendships level up. I led the technical side.</p>
+      <ul class="stack"><li>MVVM</li><li>SnapKit</li><li>Firebase Firestore</li></ul>
+      <p class="aside">The screens here are rebuilt from the app's own artwork and copy.</p>
+    </div>
+    <div class="reel">
+      <div class="ub-slide" data-caption="">
+        <img src="../assets/unibuzz/unibuzz-onboarding-1.png" alt="" width="800" height="792" loading="lazy">
+        <p class="ub-h">Post Anonymously!</p>
+        <p class="ub-p">Share your thoughts, stories, and struggle as college students!</p>
+        <span class="ub-dots"><i class="on"></i><i></i><i></i></span>
+      </div>
+      <div class="ub-slide" data-caption="">
+        <img src="../assets/unibuzz/unibuzz-onboarding-2.png" alt="" width="663" height="800" loading="lazy">
+        <p class="ub-h">Build a friendship</p>
+        <p class="ub-p">Befriend someone and build your relationship with them through levels with gamification!</p>
+        <span class="ub-dots"><i></i><i class="on"></i><i></i></span>
+      </div>
+      <div class="ub-slide" data-caption="">
+        <img src="../assets/unibuzz/unibuzz-onboarding-3.png" alt="" width="794" height="800" loading="lazy">
+        <p class="ub-h">We’ll accompany you as you adjust in college</p>
+        <p class="ub-p">We understand that everything is changing for you. But, we want to make it better.</p>
+        <span class="ub-dots"><i></i><i></i><i class="on"></i></span>
+      </div>
+      <div class="ub-slide ub-dark" data-caption="">
+        <img src="../assets/unibuzz/unibuzz-mascot.png" alt="" width="800" height="613" loading="lazy">
+        <p class="ub-h">1 Drop of Honey!</p>
+        <img class="ub-jar" src="../assets/unibuzz/unibuzz-honey-drop.png" alt="" width="752" height="800" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="world" id="hello"
+    data-device="phone" data-bg="#e6e8eb" data-fg="#14171b" data-accent="#14171b"
+    data-bg-dark="#121417" data-fg-dark="#e8eaed" data-accent-dark="#e8eaed"
+    data-type="800 0.4 0 0" data-giant="Hello" data-len="1.3">
+    <div class="copy">
+      <p class="meta">Before all this</p>
+      <p>Computer engineering at Universitas Indonesia, graduating in 2022 with a 3.94 GPA. The Apple Developer Academy, and Dicoding's iOS Developer Expert certificate.</p>
+      <h2 class="name">Say hello</h2>
+      <ul class="contact">
+        <li><a href="mailto:farhan.almasyhur@gmail.com">farhan.almasyhur@gmail.com</a></li>
+        <li><a href="https://www.linkedin.com/in/farhanalmasyhur" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="reel" data-reuse="home"></div>
+  </section>
+
+</main>
+
+<script src="main.js"></script>
+</body>
+</html>

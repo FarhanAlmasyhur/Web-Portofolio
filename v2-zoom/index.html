@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muhammad Farhan Almasyhur, iOS engineer</title>
+<meta name="description" content="Muhammad Farhan Almasyhur builds iOS apps for instruments that see inside concrete. Scroll to zoom into eight years of his work, up to 200×.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Muhammad Farhan Almasyhur, iOS engineer">
+<meta property="og:description" content="Eight years of work on one chart. Scroll to zoom in, up to 200×.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&family=Martian+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Muhammad Farhan Almasyhur",
+  "jobTitle": "iOS Development Engineer",
+  "worksFor": { "@type": "Organization", "name": "Screening Eagle Dreamlab" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Singapore" },
+  "alumniOf": "Universitas Indonesia",
+  "email": "mailto:farhan.almasyhur@gmail.com",
+  "sameAs": ["https://www.linkedin.com/in/farhanalmasyhur"]
+}
+</script>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<canvas class="plot" aria-hidden="true"></canvas>
+
+<div class="readout" aria-hidden="true">
+  <output class="mag">1.00×</output>
+  <p class="span-label">8 years across</p>
+</div>
+
+<nav class="lens" aria-label="Zoom levels">
+  <ol class="lens-ticks"></ol>
+</nav>
+
+<main class="chapters">
+
+  <section class="ch ch-hero" id="start" data-zoom="1" data-mark="now">
+    <div class="card">
+      <h1 class="name">Muhammad Farhan Almasyhur</h1>
+      <p class="lede">I build iOS apps for instruments that see inside concrete.</p>
+      <p>The chart behind this page is my last eight years, plotted against time. Scrolling zooms in on the present, all the way to 200×, which is the zoom limit I gave the Profometer app.</p>
+      <p class="hint">Scroll to zoom</p>
+    </div>
+  </section>
+
+  <section class="ch" id="jakarta" data-left="2018-03" data-mark="ui">
+    <div class="card">
+      <p class="when">2018 to 2022, Jakarta</p>
+      <h2>Computer engineering</h2>
+      <p>I studied computer engineering at Universitas Indonesia: algorithms, relational databases, object-oriented design and some artificial intelligence. I graduated in August 2022 with a GPA of 3.94 out of 4.</p>
+      <p>Alongside it I went through the Apple Developer Academy and earned Dicoding's iOS Developer Expert certificate.</p>
+    </div>
+  </section>
+
+  <section class="ch" id="unibuzz" data-left="2022-05" data-mark="unibuzz">
+    <div class="card">
+      <p class="when">August to November 2022</p>
+      <h2>Unibuzz</h2>
+      <p>My first time leading a project's technical side: an app where university students talk to each other in an anonymous forum. I set up the architecture in MVVM, built every screen in code with SnapKit, and put Firebase Firestore underneath.</p>
+    </div>
+  </section>
+
+  <section class="ch" id="mediatropy" data-left="2022-09" data-mark="mediatropy">
+    <div class="card">
+      <p class="when">November 2022 to December 2024</p>
+      <h2>Three apps at once</h2>
+      <p>Then two years working remotely for Mediatropy, a Singapore agency with clients in more than seven countries, on three client apps in parallel.</p>
+      <p><strong>Luckycharm</strong>, a zodiac app, arrived barely usable. I rebuilt it into a working app with reactive MVVM-Clean in RxSwift.</p>
+      <p><strong>Hi Eureka</strong>, an AI encyclopedia that children talk to, I built from an empty project to the App Store in SwiftUI. <a href="https://apps.apple.com/us/app/id1671082808" rel="noopener">See it on the App Store</a>.</p>
+      <p><strong>Stellkey</strong>, a positive-habits app for kids, was the third.</p>
+      <p>I was recognised as one of the team's top performers for delivering ahead of schedule on all three.</p>
+    </div>
+  </section>
+
+  <section class="ch" id="profometer" data-left="2024-10" data-mark="screeningeagle">
+    <div class="card">
+      <p class="when">January 2025 to now, Singapore</p>
+      <h2>Seeing inside concrete</h2>
+      <p>At Screening Eagle Dreamlab I work on the Profometer. An engineer rolls a probe across a concrete slab, the probe senses the steel inside, and it streams what it finds over Bluetooth to an iPad. The app draws where every bar is and how deep it sits. The PM8000 finds the steel; the PM8500 maps where it's corroding.</p>
+      <p>I write that iPad app, next to the people who build the hardware: custom measurement drawing in UIKit, state kept predictable with ReSwift, and a Bluetooth link that holds steady while data streams in. Engineers in more than 20 countries use it.</p>
+    </div>
+  </section>
+
+  <section class="ch ch-limit" id="old-limit" data-zoom="8" data-mark="limit">
+    <div class="card">
+      <p class="when">8×</p>
+      <h2>The old limit</h2>
+      <p>This is where the Profometer's measurement view used to stop zooming. I reworked how it renders in Core Graphics, and now it zooms to 200× while using a quarter of the memory it did before.</p>
+      <p>Everything past this point on the chart is zoom that didn't exist before.</p>
+    </div>
+  </section>
+
+  <section class="ch" id="toolkit" data-zoom="40" data-mark="now">
+    <div class="card">
+      <p class="when">40×</p>
+      <h2>What I reach for</h2>
+      <p>UIKit when every pixel has to land exactly. SwiftUI when a screen needs to exist quickly. Core Graphics when nothing off the shelf will draw it. CoreBluetooth when there's hardware on the other end.</p>
+      <p>Underneath, architecture I can reason about: MVVM, Clean, and ReSwift's single source of truth. Outside Swift I've worked in Flutter, JavaScript, Java and C/C++.</p>
+    </div>
+  </section>
+
+  <section class="ch ch-end" id="contact" data-zoom="200" data-mark="now">
+    <div class="card">
+      <p class="when">200×</p>
+      <h2>The next mark goes here</h2>
+      <p>At full zoom the chart shows <span data-days>about two weeks</span>, ending today. If you're building something where software meets hardware, or an iOS app that has to be exact, I'd like to hear about it.</p>
+      <ul class="contact">
+        <li><a href="mailto:farhan.almasyhur@gmail.com">farhan.almasyhur@gmail.com</a></li>
+        <li><a href="https://www.linkedin.com/in/farhanalmasyhur" rel="noopener">LinkedIn</a></li>
+      </ul>
+      <p class="sign">Based in Singapore, from Indonesia.</p>
+    </div>
+  </section>
+
+</main>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# local test pages used while building each project section
+preview-*.html
+
+# downloaded but unused (7.5 MB)
+assets/profometer/pm8000-ar-linescan.mp4

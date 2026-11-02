@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muhammad Farhan Almasyhur, iOS engineer</title>
+<meta name="description" content="Muhammad Farhan Almasyhur is an iOS engineer in Singapore who builds the software structural engineers use to see steel inside concrete.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Muhammad Farhan Almasyhur, iOS engineer">
+<meta property="og:description" content="Scan the slab to find what's buried in it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,500;0,700;1,400&family=Atkinson+Hyperlegible+Mono:wght@400;600&family=Big+Shoulders+Stencil+Display:wght@700;900&family=Permanent+Marker&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<div class="probe" aria-hidden="true">
+  <span class="probe-tab">probe</span>
+  <span class="probe-hint">scroll to scan</span>
+</div>
+
+<main class="slab">
+  <div class="page">
+
+    <header class="surface">
+      <h1 class="name">
+        <span class="name-first">Muhammad</span>
+        <span class="name-main">Farhan</span>
+        <span class="name-last">Almasyhur</span>
+      </h1>
+      <div class="lede">
+        <p>I'm an iOS engineer in Singapore. These days I write the app that lets structural engineers find the steel inside concrete, on sites in more than 20 countries.</p>
+        <p>This page is a slab. Scroll and the probe finds what's buried in it: where I've worked, what I've shipped, and what I'm made of.</p>
+      </div>
+    </header>
+
+    <section class="bar" id="r1" data-label="Screening Eagle Dreamlab" data-start="2025-01" data-dia="20" aria-labelledby="r1-title">
+      <div class="mark" aria-hidden="true">
+        <span class="mark-id">R1</span>
+        <span class="mark-spec">c <b data-cover></b></span>
+        <span class="mark-spec">Ø20</span>
+      </div>
+      <svg class="stroke" aria-hidden="true" preserveAspectRatio="none"><path pathLength="1"/></svg>
+      <div class="cavity">
+        <div class="rebar" aria-hidden="true"></div>
+        <div class="cut">
+          <h2 class="stencil" id="r1-title">Screening Eagle Dreamlab</h2>
+          <p class="role">iOS Development Engineer</p>
+          <p class="when">January 2025 to now, onsite in Singapore</p>
+          <p>I build iOS features for the PM8000 and PM8500, structural inspection tools used by engineers in more than 20 countries. I sit in a team where hardware and software engineers work side by side, and with product and hardware I design and ship the measurement and visualization features engineers rely on in the field.</p>
+
+          <article class="project">
+            <h3>Profometer</h3>
+            <p class="when">January 2025 to now</p>
+            <ul>
+              <li>Built core features for PM8000 and PM8500 in UIKit, including custom measurement drawing with UIGraphics.</li>
+              <li>Moved state into ReSwift so the app behaves predictably and the UI stops disagreeing with itself.</li>
+              <li>Integrated and tuned the Bluetooth link to the PM probes for steady, real-time data.</li>
+              <li>Rewrote the Core Graphics rendering: zoom went from 8× to 200×, and memory use dropped by 75%.</li>
+            </ul>
+
+            <figure class="zoom">
+              <div class="zoom-screen">
+                <canvas class="zoom-canvas" aria-label="A line scan signal you can zoom into"></canvas>
+                <output class="zoom-read" for="zoom-range">8×</output>
+              </div>
+              <div class="zoom-control">
+                <label for="zoom-range">Zoom into the scan</label>
+                <div class="zoom-track">
+                  <input type="range" id="zoom-range" min="0" max="1000" value="392" step="1">
+                  <span class="zoom-limit" aria-hidden="true">old limit</span>
+                </div>
+              </div>
+              <figcaption>The old renderer stopped at 8×. The rewrite goes to 200× on a quarter of the memory. Drag the scan to pan.</figcaption>
+            </figure>
+          </article>
+        </div>
+        <div class="cover" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="bar" id="r2" data-label="Mediatropy" data-start="2022-11" data-dia="20" aria-labelledby="r2-title">
+      <div class="mark" aria-hidden="true">
+        <span class="mark-id">R2</span>
+        <span class="mark-spec">c <b data-cover></b></span>
+        <span class="mark-spec">Ø20</span>
+      </div>
+      <svg class="stroke" aria-hidden="true" preserveAspectRatio="none"><path pathLength="1"/></svg>
+      <div class="cavity">
+        <div class="rebar" aria-hidden="true"></div>
+        <div class="cut">
+          <h2 class="stencil" id="r2-title">Mediatropy</h2>
+          <p class="role">iOS Developer</p>
+          <p class="when">November 2022 to December 2024, remote from Singapore</p>
+          <p>A digital agency with clients in more than seven countries across Asia. I worked on three client apps at once (Luckycharm, Stellkey and Eureka), designing features, fixing critical bugs and keeping the code healthy. I was recognised as one of the team's top performers for shipping ahead of schedule on all three.</p>
+
+          <article class="project">
+            <h3>Eureka</h3>
+            <p class="when">February 2023 to December 2025</p>
+            <p>An AI-powered encyclopedia for children. I built it from an empty Xcode project to its App Store release, with SwiftUI on top of an MVVM-Clean architecture.</p>
+          </article>
+
+          <article class="project">
+            <h3>Luckycharm</h3>
+            <p class="when">November 2022 to February 2023</p>
+            <p>A zodiac app that had stopped being usable. I brought it back to a working state with a reactive MVVM-Clean architecture in RxSwift and XIB interfaces.</p>
+          </article>
+        </div>
+        <div class="cover" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="bar" id="r3" data-label="Unibuzz" data-start="2022-08" data-dia="12" aria-labelledby="r3-title">
+      <div class="mark" aria-hidden="true">
+        <span class="mark-id">R3</span>
+        <span class="mark-spec">c <b data-cover></b></span>
+        <span class="mark-spec">Ø12</span>
+      </div>
+      <svg class="stroke" aria-hidden="true" preserveAspectRatio="none"><path pathLength="1"/></svg>
+      <div class="cavity">
+        <div class="rebar rebar-thin" aria-hidden="true"></div>
+        <div class="cut">
+          <h2 class="stencil" id="r3-title">Unibuzz</h2>
+          <p class="role">Technical lead</p>
+          <p class="when">August to November 2022</p>
+          <p>An iOS app that connects university students through an anonymous forum. I led the technical side: I designed the app's architecture in MVVM, laid out the interface in code with SnapKit, kept the data in Firebase Firestore and looked after the codebase.</p>
+        </div>
+        <div class="cover" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="bar" id="r4" data-label="Universitas Indonesia" data-start="2022-08" data-dia="16" aria-labelledby="r4-title">
+      <div class="mark" aria-hidden="true">
+        <span class="mark-id">R4</span>
+        <span class="mark-spec">c <b data-cover></b></span>
+        <span class="mark-spec">Ø16</span>
+      </div>
+      <svg class="stroke" aria-hidden="true" preserveAspectRatio="none"><path pathLength="1"/></svg>
+      <div class="cavity">
+        <div class="rebar" aria-hidden="true"></div>
+        <div class="cut">
+          <h2 class="stencil" id="r4-title">Universitas Indonesia</h2>
+          <p class="role">Bachelor of Engineering in Computer Engineering</p>
+          <p class="when">Graduated August 2022, Jakarta</p>
+          <p class="gpa"><span class="gpa-num">3.94</span> <span class="gpa-of">cumulative GPA, out of 4.00</span></p>
+          <p>Coursework that stuck: software engineering, relational databases, algorithms, object-oriented programming and artificial intelligence.</p>
+          <p>Also certified as an iOS Developer Expert by Dicoding, and a graduate of the Apple Developer Academy.</p>
+        </div>
+        <div class="cover" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="mix" aria-labelledby="mix-title">
+      <h2 class="stencil stencil-surface" id="mix-title">Mix design</h2>
+      <p class="mix-intro">Every slab has a recipe. This is mine.</p>
+      <dl class="mix-sheet">
+        <div>
+          <dt>Cement <span>the language that binds it</span></dt>
+          <dd><strong>Swift</strong>, with Flutter, JavaScript, Java and C/C++</dd>
+        </div>
+        <div>
+          <dt>Aggregate <span>frameworks that give it body</span></dt>
+          <dd>UIKit, SwiftUI, Core Graphics, CoreBluetooth, RxSwift, Firebase, SnapKit</dd>
+        </div>
+        <div>
+          <dt>Reinforcement <span>architecture that holds it up</span></dt>
+          <dd>MVVM, MVVM-Clean, ReSwift (Redux)</dd>
+        </div>
+        <div>
+          <dt>Formwork <span>tools it's poured in</span></dt>
+          <dd>Xcode, Git</dd>
+        </div>
+      </dl>
+    </section>
+
+    <footer class="contact" aria-labelledby="contact-title">
+      <h2 class="stencil stencil-surface" id="contact-title">Pair with me</h2>
+      <p>I'm open to iOS roles and interesting hardware-meets-software problems.</p>
+      <ul class="contact-links">
+        <li><a href="mailto:farhan.almasyhur@gmail.com">farhan.almasyhur@gmail.com</a></li>
+        <li><a href="https://www.linkedin.com/in/farhanalmasyhur" rel="noopener">LinkedIn</a></li>
+        <li><button type="button" class="linkish" data-print>Print this page as a CV</button></li>
+      </ul>
+      <p class="legend"><span class="legend-title">Reading the marks.</span> Each R is a bar the probe found. c is its cover depth: one millimetre for every month since that work began, so the older it is, the deeper it sits. Ø is the bar's thickness, which is how much of the load it carried.</p>
+      <p class="pour">Poured in Singapore, 2026.</p>
+    </footer>
+
+  </div>
+</main>
+
+<aside class="device" aria-label="Scanner">
+  <div class="device-top">
+    <span class="device-name">FA-01</span>
+    <span class="device-link"><i aria-hidden="true"></i><span data-link>searching</span></span>
+  </div>
+  <div class="lcd">
+    <canvas class="trace" aria-label="Signal along the slab. Select a point to scan there."></canvas>
+    <div class="lcd-read" aria-hidden="true">
+      <div><span>cover</span><b data-r-cover>--</b><small>mm</small></div>
+      <div><span>signal</span><b data-r-sig>0</b><small>%</small></div>
+      <div><span>position</span><b data-r-pos>0.00</b><small>m</small></div>
+    </div>
+    <p class="lcd-msg" data-r-msg aria-live="polite">searching for probe</p>
+  </div>
+  <div class="device-keys">
+    <div class="keys-jump" role="group" aria-label="Scan to a bar">
+      <button type="button" data-jump="r1" aria-label="Scan to R1, Screening Eagle Dreamlab">R1</button>
+      <button type="button" data-jump="r2" aria-label="Scan to R2, Mediatropy">R2</button>
+      <button type="button" data-jump="r3" aria-label="Scan to R3, Unibuzz">R3</button>
+      <button type="button" data-jump="r4" aria-label="Scan to R4, Universitas Indonesia">R4</button>
+    </div>
+    <button type="button" class="key-expose" data-expose>Expose all</button>
+  </div>
+</aside>
+
+<script src="main.js"></script>
+</body>
+</html>

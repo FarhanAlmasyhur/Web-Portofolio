@@ -1,0 +1,640 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&display=swap");
+
+/* ============================================================
+   SYDTRANSPORT: one trip, told as the app's On board stop list.
+   A thick train-orange line runs down the page, a blue you-dot
+   rides it, passed stops dim, and a Live Activity pill at the
+   top counts the stops down.
+   ============================================================ */
+.w-syd {
+  --night: #0B0E13;
+  --sheet: #12161D;
+  --card: #1B212B;
+  --ink: #F4F6F8;
+  --mute: #9AA3B2;
+  --live: #3DDC97;
+  --alert: #FFB020;
+  --train: #F6891F;
+  --metro: #14A3A9;
+  --bus: #22B8F0;
+  --lr: #FF3B5C;
+  --ferry: #3FAE3A;
+  --you: #0A84FF;
+  --cream: #F4E9C8;
+  --f-num: "Barlow Condensed", var(--f-ui);
+
+  /* the route column */
+  --tw: 84px;         /* time column */
+  --lw: 48px;         /* line column */
+  --cg: 28px;         /* column gap */
+  --lx: calc(var(--tw) + var(--cg) + var(--lw) / 2);  /* line centre, from the list's left edge */
+  --rh: 52px;         /* station row height */
+  --dy: calc(var(--rh) / 2);
+  --line: 10px;
+  --pw: clamp(176px, 15.5vw, 232px);   /* phone width */
+
+  position: relative;
+  background:
+    radial-gradient(70% 40% at 85% 0%, rgb(246 137 31 / .10), transparent 70%),
+    radial-gradient(60% 30% at 0% 55%, rgb(34 184 240 / .06), transparent 70%),
+    var(--night);
+  color: var(--ink);
+  font-family: var(--f-ui);
+  overflow-x: clip;
+}
+.w-syd .syd-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(72px, 12vh, 140px) var(--edge) 0;
+}
+
+/* shared bits ------------------------------------------------ */
+.w-syd .syd-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.3em;
+  padding: .1em .35em;
+  border-radius: .32em;
+  background: var(--train);
+  color: var(--night);
+  font-family: var(--f-num);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.1;
+  letter-spacing: .01em;
+}
+.w-syd .syd-lv {
+  /* the app's live mark: two arcs rising from a point */
+  display: inline-block;
+  width: .78em;
+  height: .78em;
+  margin-right: .3em;
+  vertical-align: -.02em;
+  background: var(--live);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2 14A12 12 0 0 1 14 2M2 14A6.5 6.5 0 0 1 8.5 7.5' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='2.4' cy='13.6' r='1.9'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2 14A12 12 0 0 1 14 2M2 14A6.5 6.5 0 0 1 8.5 7.5' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='2.4' cy='13.6' r='1.9'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.w-syd .syd-pro {
+  display: inline-flex;
+  align-items: center;
+  gap: .3em;
+  margin-left: .4em;
+  padding: .05em .5em .05em .4em;
+  border: 1.5px solid rgb(244 246 248 / .5);
+  border-radius: 99px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  vertical-align: .1em;
+}
+.w-syd .syd-pro::before { content: ""; width: .5em; height: .5em; border-radius: 50%; background: var(--train); }
+.w-syd :focus-visible { outline-color: var(--you); }
+
+/* ============================================================
+   HEAD
+   ============================================================ */
+.w-syd .syd-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: clamp(18px, 2.4vw, 30px);
+  row-gap: .8rem;
+  align-items: end;
+  max-width: 62rem;
+  padding-bottom: clamp(40px, 8vh, 90px);
+}
+.w-syd .syd-icon {
+  grid-row: 1 / span 2;
+  width: clamp(76px, 8vw, 112px);
+  height: auto;
+  border-radius: 22.5%;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / .08), 0 24px 50px -20px rgb(246 137 31 / .45);
+}
+.w-syd .syd-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  font-size: .82rem;
+  color: var(--mute);
+}
+.w-syd .syd-meta span { border-left: 1px solid #2B323E; padding-left: .5rem; }
+.w-syd .syd-meta span:last-child { color: var(--live); }
+.w-syd h2 {
+  font-family: var(--f-num);
+  font-weight: 800;
+  font-size: clamp(3.4rem, 8.4vw, 7.4rem);
+  line-height: .86;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+.w-syd .syd-tag,
+.w-syd .syd-lede,
+.w-syd .syd-modes,
+.w-syd .syd-trip { grid-column: 1 / -1; }
+.w-syd .syd-tag {
+  margin-top: .6rem;
+  font-family: var(--f-num);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1;
+  color: var(--live);
+}
+.w-syd .syd-lede { font-size: clamp(1rem, 1.3vw, 1.15rem); line-height: 1.5; max-width: 34em; color: #C9D0DA; }
+.w-syd .syd-modes {
+  list-style: none;
+  margin: .3rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem .9rem;
+  font-family: var(--f-num);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.w-syd .syd-modes li { display: inline-flex; align-items: center; gap: .45em; }
+.w-syd .syd-modes li::before { content: ""; width: 1.4em; height: 5px; border-radius: 3px; background: currentColor; }
+.w-syd .m-train { color: var(--train); }
+.w-syd .m-metro { color: var(--metro); }
+.w-syd .m-bus { color: var(--bus); }
+.w-syd .m-ferry { color: var(--ferry); }
+.w-syd .m-lr { color: var(--lr); }
+.w-syd .syd-trip {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .95rem;
+  color: var(--mute);
+}
+
+/* ============================================================
+   THE RIDE
+   ============================================================ */
+.w-syd .syd-ride { position: relative; }
+
+/* the Live Activity pill, pinned while the ride is on screen */
+.w-syd .syd-live {
+  position: sticky;
+  top: max(14px, env(safe-area-inset-top));
+  z-index: 6;
+  height: 0;
+  margin-bottom: 120px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+html:not(.js) .w-syd .syd-live { display: none; }
+.w-syd .syd-pill {
+  width: min(400px, calc(100vw - 32px));
+  height: 68px;
+  flex: none;
+  border-radius: 34px;
+  padding: 10px 22px 0 12px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: 40px 1fr;
+  column-gap: 12px;
+  align-items: center;
+  background: linear-gradient(180deg, rgb(18 22 29 / .62), rgb(11 14 19 / .48));
+  box-shadow:
+    inset 0 1px 1px rgb(255 255 255 / .4),
+    inset 0 -1px 1px rgb(255 255 255 / .1),
+    0 14px 36px rgb(0 0 0 / .5);
+}
+.w-syd .syd-pill .syd-badge { font-size: 1.15rem; min-width: 44px; height: 36px; border-radius: 12px; }
+.w-syd .syd-pill-mid { display: grid; min-width: 0; line-height: 1.1; }
+.w-syd .syd-pill small {
+  font-size: .72rem;
+  color: rgb(244 246 248 / .7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.w-syd .syd-pill b {
+  font-family: var(--f-num);
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.05;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-variant-numeric: tabular-nums;
+}
+.w-syd .syd-pill-end { display: grid; justify-items: end; line-height: 1.1; }
+.w-syd .syd-pill-end b { color: var(--live); }
+.w-syd .syd-pill.is-alert .syd-pill-mid small { color: var(--alert); }
+.w-syd .syd-pill.is-next .syd-pill-mid b { color: var(--bus); }
+.w-syd .syd-pill.is-here .syd-pill-mid b { color: var(--live); }
+.w-syd .syd-pill-bar {
+  grid-column: 2 / 4;
+  grid-row: 2;
+  align-self: start;
+  position: relative;
+  height: 4px;
+  margin-top: 2px;
+  border-radius: 2px;
+  background: rgb(244 246 248 / .18);
+  overflow: hidden;
+}
+.w-syd .syd-pill-bar i {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--train);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.w-syd .syd-pill.is-buzz { animation: syd-buzz .55s linear; }
+@keyframes syd-buzz {
+  0%, 100% { transform: translateX(0); }
+  10%, 50%, 90% { transform: translateX(-3px); }
+  30%, 70% { transform: translateX(3px); }
+}
+
+/* the stop list ---------------------------------------------- */
+.w-syd .syd-stops {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.w-syd .syd-stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--tw) var(--lw) minmax(0, 1fr) auto;
+  grid-template-rows: var(--rh) auto;
+  column-gap: var(--cg);
+  padding-bottom: clamp(110px, 20vh, 220px);
+}
+/* the line from this stop's dot down to the next one */
+.w-syd .syd-stop::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: var(--lx);
+  top: var(--dy);
+  height: 100%;
+  width: var(--line);
+  margin-left: calc(var(--line) / -2);
+  background: var(--train);
+  border-radius: var(--line);
+}
+/* where the train came from, above the first stop */
+.w-syd .syd-stop:first-child::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: var(--lx);
+  top: calc(var(--dy) - 110px);
+  height: 110px;
+  width: var(--line);
+  margin-left: calc(var(--line) / -2);
+  background: linear-gradient(transparent, #3A414D);
+}
+/* the line carries on past my stop, but not my trip */
+.w-syd .syd-last::before { height: calc(100% + 120px); background: linear-gradient(#3A414D 60%, transparent); }
+.w-syd .syd-last { padding-bottom: clamp(60px, 10vh, 110px); }
+
+.w-syd .syd-dot {
+  position: absolute;
+  z-index: 2;
+  left: var(--lx);
+  top: var(--dy);
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 6px var(--night);
+  transition: transform .3s, background-color .3s;
+}
+.w-syd .syd-alert .syd-dot {
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border-radius: 8px;
+  background: var(--alert);
+  transform: rotate(45deg);
+}
+.w-syd .syd-alert .syd-dot::after {
+  content: "!";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform: rotate(-45deg);
+  color: var(--night);
+  font-family: var(--f-num);
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+.w-syd .syd-name {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: center;
+  font-family: var(--f-num);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 2.3vw, 2.1rem);
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.w-syd .syd-alert .syd-name { color: var(--alert); }
+.w-syd .syd-time {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  justify-self: end;
+  font-family: var(--f-num);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.w-syd .syd-alert .syd-time { color: var(--alert); font-size: 1rem; letter-spacing: .14em; text-transform: uppercase; }
+.w-syd .syd-body {
+  grid-column: 3;
+  grid-row: 2;
+  padding-top: 1.1rem;
+  max-width: 30rem;
+  display: grid;
+  align-content: start;
+  gap: .85rem;
+}
+.w-syd .syd-feat {
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c);
+}
+.w-syd h3 {
+  margin: 0;
+  font-family: var(--f-num);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 4.6vw, 4.2rem);
+  line-height: .9;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.w-syd h3 em { font-style: normal; color: var(--c); }
+.w-syd .syd-body > p:not(.syd-feat) { font-size: 1.02rem; line-height: 1.55; color: #D5DAE2; }
+.w-syd .syd-body > .syd-small { font-size: .9rem; color: var(--mute); }
+.w-syd .syd-lines { list-style: none; margin: .2rem 0 0; padding: 0; display: grid; gap: .55rem; }
+.w-syd .syd-lines li {
+  padding: .7rem .9rem;
+  border-radius: 14px;
+  background: var(--card);
+  font-size: .9rem;
+  color: var(--mute);
+}
+.w-syd .syd-lines b {
+  display: block;
+  font-family: var(--f-num);
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+/* phones beside each stop */
+.w-syd .syd-phones {
+  grid-column: 4;
+  grid-row: 1 / span 2;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.w-syd .syd-phone {
+  margin: 0;
+  width: var(--pw);
+  aspect-ratio: 736 / 1600;
+  border-radius: calc(var(--pw) * .15);
+  overflow: hidden;
+  background: var(--sheet);
+  box-shadow: 0 0 0 5px var(--card), 0 0 0 6px #2E3644, 0 40px 70px -30px rgb(0 0 0 / .9);
+}
+.w-syd .syd-phone + .syd-phone { margin-top: 64px; }
+.w-syd .syd-phone img { width: 100%; height: 100%; object-fit: cover; }
+
+/* passed stops dim, like the app does */
+.w-syd .syd-stop > :not(.syd-dot) { transition: opacity .35s; }
+.w-syd .syd-stop.is-passed > .syd-name,
+.w-syd .syd-stop.is-passed > .syd-time,
+.w-syd .syd-stop.is-passed > .syd-body { opacity: .38; }
+.w-syd .syd-stop.is-passed > .syd-phones { opacity: .5; }
+.w-syd .syd-stop.is-passed:not(.syd-alert) .syd-dot { background: #6B7482; }
+.w-syd .syd-stop.is-passed.syd-alert .syd-dot { background: #8A6A2A; }
+.w-syd .syd-stop.is-current .syd-dot { transform: scale(1.18); }
+.w-syd .syd-stop.syd-alert.is-current .syd-dot { transform: rotate(45deg) scale(1.15); }
+
+/* the ridden part of the line turns grey; the blue dot is me */
+.w-syd .syd-passed,
+.w-syd .syd-you { display: none; }
+.js .w-syd .syd-passed {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  left: var(--lx);
+  top: 0;
+  width: var(--line);
+  margin-left: calc(var(--line) / -2);
+  height: 1px;
+  border-radius: var(--line);
+  background: #3A414D;
+  transform-origin: top center;
+  transform: scaleY(0);
+  pointer-events: none;
+}
+.js .w-syd .syd-you {
+  display: block;
+  position: absolute;
+  z-index: 3;
+  left: var(--lx);
+  top: 0;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border-radius: 50%;
+  background: var(--you);
+  box-shadow: 0 0 0 4px #fff, 0 4px 14px rgb(0 0 0 / .6);
+  pointer-events: none;
+  will-change: transform;
+}
+.js .w-syd .syd-you::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--you);
+  animation: syd-ping 1.8s ease-out infinite;
+}
+@keyframes syd-ping {
+  0% { transform: scale(1); opacity: .9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* the get-off buzz, when I reach my stop -------------------- */
+.w-syd .syd-arrive {
+  position: relative;
+  z-index: 4;
+  margin-top: -40px;
+  padding: 0 0 clamp(60px, 10vh, 110px) calc(var(--lx) - 34px);
+}
+.w-syd .syd-buzz {
+  width: min(440px, 100%);
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 14px 18px 14px 14px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgb(255 255 255 / .16), rgb(255 255 255 / .07));
+  transition: opacity .4s, transform .5s cubic-bezier(.2, .9, .25, 1.2);
+}
+.w-syd .syd-buzz img { width: 44px; height: 44px; border-radius: 22.5%; }
+.w-syd .syd-buzz-app {
+  display: flex;
+  justify-content: space-between;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgb(244 246 248 / .7);
+}
+.w-syd .syd-buzz-app span { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.w-syd .syd-buzz-t { font-weight: 700; font-size: 1.05rem; line-height: 1.25; margin-top: 2px; }
+.w-syd .syd-buzz-b { font-size: .92rem; color: rgb(244 246 248 / .85); }
+.js .w-syd .syd-buzz:not(.is-in) { opacity: 0; transform: translateY(-18px) scale(.96); }
+.js .w-syd .syd-buzz.is-in { animation: syd-buzz .55s .35s linear; }
+
+/* ============================================================
+   END OF THE LINE
+   ============================================================ */
+.w-syd .syd-end {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(22px, 3vw, 40px) clamp(28px, 5vw, 72px);
+  padding-bottom: clamp(56px, 10vh, 110px);
+}
+.w-syd .syd-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 20px 14px 14px;
+  border-radius: 20px;
+  background: var(--card);
+  max-width: 44rem;
+}
+.w-syd .syd-row img { width: 52px; height: 52px; border-radius: 22.5%; }
+.w-syd .syd-row p:not(.syd-row-end) { display: grid; line-height: 1.25; min-width: 0; }
+.w-syd .syd-row b { font-family: var(--f-num); font-weight: 700; font-size: 1.45rem; letter-spacing: .02em; text-transform: uppercase; }
+.w-syd .syd-row span { font-size: .95rem; color: var(--live); }
+.w-syd .syd-row-end { font-family: var(--f-num); font-weight: 700; font-size: 1.5rem; white-space: nowrap; }
+.w-syd .syd-stats {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 24px;
+  align-content: start;
+}
+.w-syd .syd-stats div { display: flex; flex-direction: column-reverse; border-top: 2px solid #2B323E; padding-top: .6rem; }
+.w-syd .syd-stats dd {
+  margin: 0;
+  font-family: var(--f-num);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 4.4vw, 3.8rem);
+  line-height: 1;
+  color: var(--cream);
+  font-variant-numeric: tabular-nums;
+}
+.w-syd .syd-stats dt { font-size: .85rem; color: var(--mute); margin-top: .25rem; }
+.w-syd .syd-notes { display: grid; gap: .9rem; align-content: start; }
+.w-syd .syd-notes p { font-size: 1rem; line-height: 1.55; color: #D5DAE2; padding-left: 1rem; border-left: 3px solid var(--train); }
+.w-syd .syd-notes p:nth-child(2) { border-color: var(--bus); }
+.w-syd .syd-notes p:nth-child(3) { border-color: var(--lr); }
+.w-syd .syd-end .chips { grid-column: 1 / -1; color: var(--cream); }
+.w-syd .syd-end .chips li { font-family: var(--f-num); font-size: .95rem; font-weight: 600; letter-spacing: .04em; border-color: rgb(244 233 200 / .4); }
+
+/* the platform: a tactile edge, then every line */
+.w-syd .syd-band { position: relative; margin: 0; }
+.w-syd .syd-band::before {
+  content: "";
+  display: block;
+  height: 14px;
+  background:
+    radial-gradient(circle at 7px 7px, #0B0E13 2.6px, transparent 3px) 0 0 / 14px 14px repeat-x,
+    var(--cream);
+  opacity: .9;
+}
+.w-syd .syd-band img { width: 100%; height: auto; aspect-ratio: 1600 / 686; object-fit: cover; }
+.w-syd .syd-band figcaption {
+  padding: 16px var(--edge) 100px;
+  font-family: var(--f-num);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--mute);
+  text-align: center;
+  background: #0A0D18;
+}
+
+/* ============================================================
+   PHONES
+   ============================================================ */
+@media (max-width: 860px) {
+  .w-syd {
+    --tw: 0px;
+    --lw: 34px;
+    --cg: 14px;
+    --lx: calc(var(--lw) / 2);
+    --rh: 44px;
+    --line: 8px;
+    --pw: min(46vw - 46px, 210px);
+  }
+  .w-syd .syd-stop {
+    grid-template-columns: var(--lw) minmax(0, 1fr);
+    grid-template-rows: var(--rh) auto auto;
+    padding-bottom: 96px;
+  }
+  .w-syd .syd-name { grid-column: 2; font-size: 1.55rem; }
+  .w-syd .syd-time { grid-column: 2; justify-self: end; font-size: 1.35rem; }
+  .w-syd .syd-body { grid-column: 2; padding-top: .6rem; }
+  .w-syd .syd-phones { grid-column: 2; grid-row: 3; margin-top: 28px; gap: 14px; }
+  .w-syd .syd-phones:has(> :only-child) { --pw: min(58vw, 230px); }
+  .w-syd .syd-phone + .syd-phone { margin-top: 40px; }
+  .w-syd .syd-phone { box-shadow: 0 0 0 4px var(--card), 0 0 0 5px #2E3644, 0 30px 50px -24px rgb(0 0 0 / .9); }
+  .w-syd h3 { font-size: clamp(2.3rem, 11vw, 3rem); }
+  .w-syd .syd-dot { width: 22px; height: 22px; margin: -11px 0 0 -11px; box-shadow: 0 0 0 5px var(--night); }
+  .w-syd .syd-alert .syd-dot { width: 24px; height: 24px; margin: -12px 0 0 -12px; border-radius: 6px; }
+  .w-syd .syd-alert .syd-dot::after { font-size: .95rem; }
+  .w-syd .syd-live { margin-bottom: 104px; }
+  .w-syd .syd-arrive { margin-top: -20px; padding-left: 0; padding-bottom: 80px; }
+  .w-syd .syd-end { grid-template-columns: minmax(0, 1fr); }
+  .w-syd .syd-meta span:last-child { flex-basis: 100%; border-left: 0; padding-left: 0; }
+  .w-syd .syd-band figcaption { padding-bottom: 100px; font-size: .9rem; }
+}
+@media (max-width: 420px) {
+  .w-syd .syd-pill { padding-right: 18px; column-gap: 10px; }
+  .w-syd .syd-pill b { font-size: 1.25rem; }
+  .w-syd .syd-row { grid-template-columns: auto minmax(0, 1fr); }
+  .w-syd .syd-row-end { display: none; }
+  .w-syd .syd-head { grid-template-columns: minmax(0, 1fr); }
+  .w-syd .syd-icon { grid-row: auto; width: 72px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .w-syd .syd-pill.is-buzz,
+  .js .w-syd .syd-buzz.is-in { animation: none; }
+  .js .w-syd .syd-you::after { animation: none; opacity: 0; }
+  .w-syd .syd-buzz,
+  .w-syd .syd-dot,
+  .w-syd .syd-stop > :not(.syd-dot) { transition: none; }
+}

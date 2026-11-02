@@ -1,0 +1,618 @@
+/* ------------------------------------------------------------
+   Tokens
+   ------------------------------------------------------------ */
+:root {
+  --concrete: #b6b2a8;      /* cured slab surface */
+  --cut: #d3cfc5;           /* freshly exposed face */
+  --ink: #1f2123;           /* graphite / stencil paint */
+  --ink-soft: #45484a;
+  --marker: #ff5a1a;        /* inspection paint, strokes */
+  --marker-ink: #a92a06;    /* inspection paint, legible labels */
+  --housing: #f0b922;       /* rugged device shell */
+  --housing-dark: #b5860c;
+  --lcd: #b7c2ab;           /* reflective LCD */
+  --lcd-ink: #1c2a21;
+  --lcd-dim: rgba(28, 42, 33, .38);
+  --hole: rgba(28, 26, 23, .62);
+  --hole-rim: rgba(255, 255, 255, .22);
+  --joint: rgba(40, 36, 30, .10);
+  --paint-blend: multiply;
+  --tex: none;
+
+  --f-body: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, sans-serif;
+  --f-mono: "Atkinson Hyperlegible Mono", ui-monospace, monospace;
+  --f-stencil: "Big Shoulders Stencil Display", "Big Shoulders Stencil", Impact, sans-serif;
+  --f-marker: "Permanent Marker", "Marker Felt", cursive;
+
+  --probe-y: 50vh;
+  --sig: 0;
+  --gutter: clamp(16px, 5vw, 72px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --concrete: #4a4945;
+    --cut: #353431;
+    --ink: #ece7dc;
+    --ink-soft: #c2bdb2;
+    --marker: #ff6a2b;
+    --marker-ink: #ff8a55;
+    --lcd: #7fd8bf;          /* backlight on at night */
+    --lcd-ink: #062319;
+    --lcd-dim: rgba(6, 35, 25, .4);
+    --hole: rgba(0, 0, 0, .6);
+    --hole-rim: rgba(255, 255, 255, .08);
+    --joint: rgba(0, 0, 0, .22);
+    --paint-blend: screen;
+  }
+}
+:root[data-theme="dark"] {
+  --concrete: #4a4945;
+  --cut: #353431;
+  --ink: #ece7dc;
+  --ink-soft: #c2bdb2;
+  --marker: #ff6a2b;
+  --marker-ink: #ff8a55;
+  --lcd: #7fd8bf;
+  --lcd-ink: #062319;
+  --lcd-dim: rgba(6, 35, 25, .4);
+  --hole: rgba(0, 0, 0, .6);
+  --hole-rim: rgba(255, 255, 255, .08);
+  --joint: rgba(0, 0, 0, .22);
+  --paint-blend: screen;
+}
+
+/* ------------------------------------------------------------
+   Base
+   ------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--concrete);
+  color: var(--ink);
+  font: 400 1.125rem/1.55 var(--f-body);
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: .18em; }
+a:hover { text-decoration-color: var(--marker); }
+
+:focus-visible {
+  outline: 3px solid var(--marker);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* The slab. Every surface layer shares one tile system so a cover
+   placed anywhere on the page lines up with the slab under it. */
+.slab,
+.cover {
+  background-color: var(--concrete);
+  background-image:
+    radial-gradient(circle at 50% 50%, var(--hole) 0 5px, var(--hole-rim) 6px 8px, transparent 9px),
+    linear-gradient(to right, var(--joint) 0 1px, transparent 1px),
+    linear-gradient(to bottom, var(--joint) 0 1px, transparent 1px),
+    var(--tex);
+  background-size: 600px 300px, 1200px 900px, 1200px 900px, 512px 512px;
+  background-repeat: repeat;
+}
+
+.slab {
+  position: relative;
+  min-height: 100vh;
+  padding: 0 var(--gutter);
+}
+
+.page {
+  max-width: 1040px;
+  padding-bottom: 30vh;
+}
+
+@media (min-width: 1000px) {
+  .slab { padding-right: calc(var(--gutter) + 320px); }
+  .probe-hint { right: calc(var(--gutter) + 310px); }
+}
+
+/* ------------------------------------------------------------
+   Stencil type: paint sprayed onto the slab
+   ------------------------------------------------------------ */
+.stencil,
+.name {
+  font-family: var(--f-stencil);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: .86;
+  letter-spacing: .01em;
+  color: var(--ink);
+  mix-blend-mode: var(--paint-blend);
+  text-shadow: 0 0 .06em color-mix(in srgb, var(--ink) 45%, transparent),
+               0 0 .22em color-mix(in srgb, var(--ink) 12%, transparent);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------
+   Surface (hero)
+   ------------------------------------------------------------ */
+.surface {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12vh 0 18vh;
+}
+
+.name { display: flex; flex-direction: column; }
+.name-first {
+  font-size: clamp(2.4rem, 7vw, 5.2rem);
+  letter-spacing: .06em;
+}
+.name-main {
+  font-size: clamp(6rem, 25vw, 17rem);
+  line-height: .8;
+  margin: .1em 0 0 -.04em;
+  transform: rotate(-1deg);
+  transform-origin: left center;
+}
+.name-last {
+  font-size: clamp(2.6rem, 9.4vw, 6.6rem);
+  letter-spacing: .04em;
+  margin-top: .22em;
+  padding-left: clamp(0px, 6vw, 4.5rem);
+}
+
+.lede {
+  max-width: 34em;
+  margin-top: clamp(2.5rem, 7vh, 4.5rem);
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+}
+.lede p { margin: 0 0 .9em; }
+.lede p + p { color: var(--ink-soft); }
+
+/* ------------------------------------------------------------
+   Probe line
+   ------------------------------------------------------------ */
+.probe {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--probe-y);
+  height: 0;
+  border-top: 1px dashed color-mix(in srgb, var(--ink) calc(35% + var(--sig) * 40%), transparent);
+  z-index: 30;
+  pointer-events: none;
+}
+.probe::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -9px;
+  height: 18px;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--marker) calc(var(--sig) * 30%), transparent), transparent);
+}
+.probe-tab {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(-50%);
+  background: var(--housing);
+  color: #2a2208;
+  font: 600 .8rem/1 var(--f-mono);
+  padding: .45rem .7rem .45rem .6rem;
+  border-radius: 0 6px 6px 0;
+  box-shadow: inset -2px 0 0 var(--housing-dark), 0 2px 0 rgba(0,0,0,.25);
+}
+.probe-hint {
+  position: absolute;
+  right: var(--gutter);
+  top: 0;
+  transform: translateY(-50%) rotate(-2deg);
+  font: 1.2rem/1 var(--f-marker);
+  color: var(--marker-ink);
+  transition: opacity .6s;
+}
+.scrolled .probe-hint { opacity: 0; }
+
+/* ------------------------------------------------------------
+   Bars (sections the probe can find)
+   ------------------------------------------------------------ */
+.bar {
+  position: relative;
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  column-gap: clamp(1.25rem, 3vw, 2.5rem);
+  margin: 0 0 clamp(7rem, 18vh, 11rem);
+}
+
+.mark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: .1rem;
+  font-family: var(--f-marker);
+  color: var(--marker-ink);
+  opacity: 0;
+  transform: rotate(-3deg) translateY(4px);
+  transition: opacity .35s .15s, transform .35s .15s;
+  position: relative;
+  z-index: 2;
+}
+.mark-id { font-size: 2.6rem; line-height: 1; }
+.mark-spec { font-size: 1.15rem; line-height: 1.3; }
+.is-found .mark { opacity: 1; transform: rotate(-3deg); }
+
+.stroke {
+  position: absolute;
+  left: calc(var(--gutter) * -1);
+  width: calc(100% + var(--gutter) * 2);
+  height: 20px;
+  top: 0;
+  overflow: visible;
+  z-index: 0;
+  pointer-events: none;
+}
+.stroke path {
+  fill: none;
+  stroke: var(--marker);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: .9;
+  transition: stroke-dashoffset .7s cubic-bezier(.6, 0, .3, 1);
+}
+.is-found .stroke path { stroke-dashoffset: 0; }
+
+.cavity {
+  position: relative;
+  z-index: 1;
+  background: var(--cut);
+  padding: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: inset 0 10px 18px -6px rgba(0, 0, 0, .35),
+              inset 0 -3px 8px -4px rgba(0, 0, 0, .25);
+}
+.cavity::before {
+  /* aggregate showing through the cut face */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--tex) 0 0 / 512px 512px;
+  opacity: .22;
+  mix-blend-mode: luminosity;
+  pointer-events: none;
+}
+
+.rebar {
+  position: relative;
+  height: 18px;
+  margin: 1.6rem -10px 0;
+  border-radius: 9px;
+  background:
+    radial-gradient(ellipse 22px 5px at 18% 40%, rgba(140, 70, 30, .55), transparent),
+    radial-gradient(ellipse 30px 6px at 63% 60%, rgba(140, 70, 30, .45), transparent),
+    radial-gradient(ellipse 16px 4px at 87% 35%, rgba(150, 80, 35, .5), transparent),
+    repeating-linear-gradient(100deg, transparent 0 9px, rgba(0, 0, 0, .3) 9px 11px, rgba(255, 255, 255, .14) 11px 12px, transparent 12px 19px),
+    linear-gradient(to bottom, #8d9293 0%, #d0d3d2 22%, #737879 55%, #3b3f40 100%);
+  box-shadow: 0 5px 6px -2px rgba(0, 0, 0, .4);
+}
+.rebar-thin { height: 12px; margin-top: 1.9rem; }
+
+.cut {
+  position: relative;
+  padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 3.5vw, 2.75rem) 0;
+  max-width: 44rem;
+}
+.cut > p { max-width: 36em; }
+
+.cut .stencil {
+  font-size: clamp(2.4rem, 5.6vw, 4.2rem);
+  margin-bottom: .9rem;
+}
+
+.role {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0;
+}
+.when {
+  margin: .1rem 0 1.1rem;
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+.project {
+  margin-top: 2.25rem;
+  padding-left: 1.25rem;
+  border-left: 3px solid color-mix(in srgb, var(--ink) 22%, transparent);
+}
+.project h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+.project .when { margin-bottom: .75rem; }
+.project ul { margin: 0; padding-left: 1.1rem; }
+.project li { margin-bottom: .45rem; max-width: 36em; }
+.project li::marker { color: var(--marker-ink); }
+
+.gpa { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; }
+.gpa-num {
+  font: 900 clamp(3rem, 7vw, 4.5rem)/1 var(--f-stencil);
+}
+.gpa-of { color: var(--ink-soft); }
+
+/* The concrete cover over each cavity. It matches the slab tile for
+   tile, then is cut away once the probe passes. */
+.cover {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: none;
+  background-position: var(--ox, 0) var(--oy, 0);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path .9s cubic-bezier(.7, 0, .2, 1) .25s;
+}
+.js .cover { display: block; }
+.is-exposed .cover { clip-path: inset(0 0 0 100%); }
+
+/* ------------------------------------------------------------
+   Zoom demo (Profometer)
+   ------------------------------------------------------------ */
+.zoom { margin: 2rem 0 0; }
+.zoom-screen {
+  position: relative;
+  background: var(--lcd);
+  border-radius: 6px;
+  box-shadow: inset 0 2px 0 rgba(0,0,0,.18), inset 0 0 0 1px rgba(0,0,0,.12), 0 0 0 6px var(--housing), 0 0 0 7px var(--housing-dark);
+  margin: 7px;
+  overflow: hidden;
+}
+.zoom-canvas {
+  display: block;
+  width: 100%;
+  height: 210px;
+  touch-action: pan-y;
+  cursor: grab;
+}
+.zoom-canvas:active { cursor: grabbing; }
+.zoom-read {
+  position: absolute;
+  right: .7rem;
+  top: .5rem;
+  font: 600 1.6rem/1 var(--f-mono);
+  color: var(--lcd-ink);
+  font-variant-numeric: tabular-nums;
+}
+.zoom-control { margin-top: 1.4rem; }
+.zoom-control label { display: block; font-weight: 700; font-size: 1rem; margin-bottom: .35rem; }
+.zoom-track { position: relative; }
+.zoom-track input { width: 100%; accent-color: var(--marker-ink); margin: 0; height: 28px; }
+.zoom-limit {
+  position: absolute;
+  left: 39.2%;
+  top: 30px;
+  transform: translateX(-50%) rotate(-3deg);
+  font: .95rem/1 var(--f-marker);
+  color: var(--marker-ink);
+  white-space: nowrap;
+}
+.zoom-limit::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -12px;
+  height: 10px;
+  border-left: 2px solid var(--marker-ink);
+}
+.zoom figcaption { margin-top: 2.2rem; color: var(--ink-soft); font-size: 1rem; max-width: 36em; }
+
+/* ------------------------------------------------------------
+   Mix design + contact (painted on the surface)
+   ------------------------------------------------------------ */
+.mix, .contact { margin-left: calc(7.5rem + clamp(1.25rem, 3vw, 2.5rem)); }
+
+.stencil-surface { font-size: clamp(3rem, 9vw, 6.5rem); }
+
+.mix-intro { margin: .8rem 0 2rem; font-size: 1.25rem; color: var(--ink-soft); }
+.mix-sheet { margin: 0; max-width: 44rem; }
+.mix-sheet div {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-top: 2px solid color-mix(in srgb, var(--ink) 30%, transparent);
+}
+.mix-sheet dt { font-weight: 700; font-size: 1.2rem; line-height: 1.25; }
+.mix-sheet dt span { display: block; font-weight: 400; font-size: .95rem; color: var(--ink-soft); margin-top: .2rem; }
+.mix-sheet dd { margin: 0; font-size: 1.15rem; }
+
+.contact { margin-top: clamp(8rem, 20vh, 12rem); }
+.contact > p { max-width: 34em; font-size: 1.2rem; margin: 1rem 0; }
+.contact-links { list-style: none; padding: 0; margin: 1.8rem 0 3rem; font-size: 1.3rem; font-weight: 700; }
+.contact-links li { margin-bottom: .6rem; }
+.linkish {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: .18em;
+  cursor: pointer;
+}
+.linkish:hover { text-decoration-color: var(--marker); }
+.contact .legend { font-size: 1rem; color: var(--ink-soft); max-width: 36em; }
+.legend-title { font-weight: 700; color: var(--ink); }
+.pour { font: 1.4rem/1.2 var(--f-marker); color: var(--marker-ink); transform: rotate(-2deg); transform-origin: left; margin-top: 3rem !important; }
+
+/* ------------------------------------------------------------
+   The device
+   ------------------------------------------------------------ */
+.device {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 300px;
+  z-index: 40;
+  background:
+    radial-gradient(circle at 12px 12px, rgba(0,0,0,.28) 0 2.5px, transparent 3.5px) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle at calc(100% - 12px) 12px, rgba(0,0,0,.28) 0 2.5px, transparent 3.5px) 0 0 / 100% 100% no-repeat,
+    var(--housing);
+  color: #2a2208;
+  border-radius: 18px;
+  padding: 14px 16px 16px;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.45),
+    inset 0 -4px 0 var(--housing-dark),
+    0 14px 30px -12px rgba(0,0,0,.5),
+    0 3px 0 rgba(0,0,0,.2);
+}
+.device-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 600 .82rem/1 var(--f-mono);
+  padding: 0 6px 10px;
+}
+.device-name { letter-spacing: .08em; }
+.device-link { display: inline-flex; align-items: center; gap: .4rem; }
+.device-link i {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #6b5a1d;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.4);
+}
+.is-paired .device-link i { background: #1f6fff; box-shadow: 0 0 6px #1f6fff; animation: blink 2.4s infinite; }
+@keyframes blink { 0%, 86%, 100% { opacity: 1; } 90% { opacity: .25; } }
+
+.lcd {
+  background: var(--lcd);
+  color: var(--lcd-ink);
+  border-radius: 8px;
+  padding: 8px 10px 9px;
+  box-shadow: inset 0 3px 0 rgba(0,0,0,.2), inset 0 0 0 1px rgba(0,0,0,.18), 0 1px 0 rgba(255,255,255,.4);
+  font-family: var(--f-mono);
+}
+.trace { display: block; width: 100%; height: 74px; cursor: crosshair; }
+.lcd-read {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--lcd-dim);
+}
+.lcd-read div { display: flex; flex-direction: column; }
+.lcd-read span { font-size: .68rem; opacity: .7; }
+.lcd-read b { font-size: 1.35rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.lcd-read small { font-size: .68rem; opacity: .7; }
+.lcd-msg {
+  margin: 6px 0 0;
+  font-size: .78rem;
+  min-height: 1.2em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.device-keys { display: flex; gap: 8px; margin-top: 12px; }
+.keys-jump { display: flex; gap: 6px; flex: 1; }
+.device button {
+  font: 600 .8rem/1 var(--f-mono);
+  color: #2a2208;
+  background: #2b2b27;
+  color: #f4efe0;
+  border: 0;
+  border-radius: 7px;
+  padding: .6rem 0;
+  cursor: pointer;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.35);
+  transition: transform .08s;
+}
+.keys-jump button { flex: 1; }
+.device button:active { transform: translateY(2px); box-shadow: inset 0 -1px 0 rgba(0,0,0,.5); }
+.device button.is-lit { background: #3a3a34; color: var(--housing); }
+.key-expose { padding: .6rem .7rem !important; background: #8f2a0c !important; }
+.key-expose[disabled] { opacity: .55; cursor: default; }
+
+/* Narrow screens: the device becomes a strip along the bottom */
+@media (max-width: 999px) {
+  :root { --probe-y: 42vh; }
+  .device {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    width: auto;
+    border-radius: 14px;
+    padding: 8px 10px 10px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "top top" "lcd keys";
+    column-gap: 10px;
+  }
+  .device-top { grid-area: top; padding: 0 4px 6px; font-size: .74rem; }
+  .lcd { grid-area: lcd; padding: 5px 8px 6px; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 10px; align-items: center; }
+  .trace { height: 48px; }
+  .lcd-read { margin: 0; padding: 0; border: 0; grid-template-columns: auto; gap: 0; }
+  .lcd-read div { flex-direction: row; align-items: baseline; gap: 3px; }
+  .lcd-read div:not(:first-child) { display: none; }
+  .lcd-read b { font-size: 1.15rem; }
+  .lcd-msg { display: none; }
+  .device-keys { grid-area: keys; margin: 0; align-self: stretch; }
+  .keys-jump { display: none; }
+  .key-expose { font-size: .74rem !important; max-width: 5.2rem; line-height: 1.15 !important; white-space: normal; }
+  .page { padding-bottom: calc(30vh + 90px); }
+}
+
+@media (max-width: 720px) {
+  body { font-size: 1.0625rem; }
+  .bar { grid-template-columns: minmax(0, 1fr); }
+  .mark { flex-direction: row; align-items: baseline; gap: .8rem; justify-content: flex-start; margin-bottom: .6rem; }
+  .mark-id { font-size: 2rem; }
+  .stroke { display: none; }
+  .mix, .contact { margin-left: 0; }
+  .mix-sheet div { grid-template-columns: minmax(0, 1fr); gap: .4rem; }
+  .probe-hint { right: 16px; font-size: 1.05rem; }
+  .cavity { margin: 0 -6px; }
+}
+
+/* ------------------------------------------------------------
+   Motion + print
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .cover, .stroke path, .mark, .probe-hint { transition: none !important; }
+  .is-paired .device-link i { animation: none; }
+}
+
+@media print {
+  :root { --concrete: #fff; --cut: #fff; --ink: #000; --ink-soft: #333; --marker-ink: #000; --tex: none; --paint-blend: normal; }
+  .slab, .cover { background: #fff !important; }
+  body { font-size: 11pt; background: #fff; }
+  .probe, .device, .cover, .stroke, .rebar, .zoom, .mark, .pour, .legend { display: none !important; }
+  .slab { padding: 0; }
+  .surface { min-height: 0; padding: 0 0 1rem; }
+  .name { flex-direction: row; flex-wrap: wrap; gap: .3em; }
+  .name span { font-size: 2.2rem !important; transform: none !important; padding: 0 !important; margin: 0 !important; letter-spacing: .02em !important; }
+  .lede { margin-top: .6rem; font-size: 11pt; }
+  .stencil, .name { text-shadow: none; }
+  .bar { display: block; margin: 0 0 1rem; }
+  .cut .stencil, .role { break-after: avoid; }
+  .project { break-inside: avoid; }
+  .cavity { box-shadow: none; padding: 0; margin: 0 !important; clip-path: none !important; }
+  body { overflow: visible; }
+  .lede p + p, .mix-intro { display: none; }
+  .cavity::before { display: none; }
+  .cut { padding: 0; max-width: none; }
+  .cut .stencil { font-size: 1.6rem; margin-bottom: .3rem; }
+  .project { margin-top: .8rem; }
+  .gpa-num { font-size: 1.6rem; }
+  .mix, .contact { margin: 1rem 0 0; }
+  .stencil-surface { font-size: 1.6rem; }
+  .page { padding: 0; max-width: none; }
+  .contact-links li:last-child { display: none; }
+}

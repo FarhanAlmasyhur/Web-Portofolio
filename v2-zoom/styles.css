@@ -1,0 +1,223 @@
+/* ------------------------------------------------------------
+   Plotter on graph paper.
+   The chart is fixed behind the page; chapters scroll in a
+   right-hand column (bottom half on phones) and their position
+   sets the zoom.
+   ------------------------------------------------------------ */
+:root {
+  --paper: #eef1ec;        /* graph paper, cool */
+  --grid: #8fbfa5;         /* graph-paper green */
+  --ink: #17213a;          /* plotter pen, blue-black */
+  --ink-2: #4a5468;
+  --pen-red: #c3351f;      /* second pen: now, and the 8× limit */
+  --card: #f8faf6;
+  --rule: #c7d3cb;
+
+  --f-display: "Anybody", "Arial Narrow", sans-serif;
+  --f-body: "Newsreader", Georgia, serif;
+  --f-mono: "Martian Mono", ui-monospace, Menlo, monospace;
+
+  --mag-wdth: 60;
+  --col: min(460px, 38vw);
+  --edge: clamp(20px, 3vw, 44px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1412; --grid: #2d5444; --ink: #e3ece5; --ink-2: #a7b5ab;
+    --pen-red: #ff6b4f; --card: #131c19; --rule: #26362f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1412; --grid: #2d5444; --ink: #e3ece5; --ink-2: #a7b5ab;
+  --pen-red: #ff6b4f; --card: #131c19; --rule: #26362f;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.15rem/1.6 var(--f-body);
+  font-optical-sizing: auto;
+}
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+a:hover { text-decoration-color: var(--pen-red); text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--pen-red); outline-offset: 3px; }
+
+/* ------------------------------------------------------------
+   Fixed instrument layer
+   ------------------------------------------------------------ */
+.plot {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.js .plot { display: block; }
+
+.readout {
+  position: fixed;
+  left: var(--edge);
+  bottom: clamp(16px, 3vh, 32px);
+  z-index: 3;
+  display: none;
+  pointer-events: none;
+}
+.js .readout { display: block; }
+.mag {
+  display: block;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-variation-settings: "wdth" var(--mag-wdth);
+  font-size: clamp(4.5rem, 10vw, 9.5rem);
+  line-height: .82;
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  transition: color .3s;
+}
+.past-limit .mag { color: var(--pen-red); }
+.span-label {
+  margin: .5rem 0 0 .15rem;
+  font: 500 .78rem/1.3 var(--f-mono);
+  color: var(--ink-2);
+}
+
+.lens {
+  position: fixed;
+  left: var(--edge);
+  top: clamp(16px, 4vh, 40px);
+  z-index: 3;
+  display: none;
+}
+.js .lens { display: block; }
+.lens-ticks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+.lens button {
+  font: 400 .74rem/1 var(--f-mono);
+  color: var(--ink-2);
+  background: none;
+  border: 0;
+  padding: 5px 6px 5px 0;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 4.2rem auto;
+  gap: .6rem;
+  text-align: left;
+}
+.lens button span:first-child { text-align: right; font-variant-numeric: tabular-nums; }
+.lens button:hover { color: var(--ink); }
+.lens button[aria-current="true"] { color: var(--ink); font-weight: 500; }
+.lens button[aria-current="true"] span:first-child::before { content: "▸ "; color: var(--pen-red); }
+
+/* ------------------------------------------------------------
+   Chapters
+   ------------------------------------------------------------ */
+.chapters { position: relative; z-index: 2; }
+
+.ch { min-height: 150vh; }
+.ch-hero { min-height: 135vh; }
+.ch-end { min-height: 115vh; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  padding: clamp(22px, 2.4vw, 32px) clamp(22px, 2.6vw, 34px);
+  max-width: 34rem;
+}
+.card p { margin: 0 0 .85em; }
+.card p:last-child { margin-bottom: 0; }
+
+.when {
+  font: 500 .76rem/1.3 var(--f-mono);
+  color: var(--ink-2);
+  margin-bottom: .7rem !important;
+}
+.card h2 {
+  font-family: var(--f-display);
+  font-weight: 760;
+  font-variation-settings: "wdth" 72;
+  font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: -.01em;
+  margin: 0 0 .9rem;
+  text-wrap: balance;
+}
+.name {
+  font-family: var(--f-display);
+  font-weight: 820;
+  font-variation-settings: "wdth" 62;
+  font-size: clamp(2.7rem, 4.4vw, 4.1rem);
+  line-height: .92;
+  letter-spacing: -.015em;
+  margin: 0 0 1.1rem;
+  text-wrap: balance;
+}
+.lede {
+  font-size: 1.45rem;
+  line-height: 1.35;
+  font-style: italic;
+}
+.hint {
+  font: 500 .76rem/1.3 var(--f-mono);
+  color: var(--pen-red);
+  margin-top: 1.4rem !important;
+}
+.ch-limit .when { color: var(--pen-red); }
+
+.contact {
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0 1.4rem;
+  display: grid;
+  gap: .4rem;
+  font-size: 1.3rem;
+}
+.sign { font-style: italic; color: var(--ink-2); }
+
+/* Desktop: chapters in a right-hand column, cards pinned while read */
+@media (min-width: 900px) {
+  .chapters {
+    width: var(--col);
+    margin-left: auto;
+    margin-right: var(--edge);
+  }
+  .card { position: sticky; top: 16vh; }
+  .ch-hero .card { top: 12vh; }
+  .ch-hero { padding-top: 12vh; }
+}
+
+/* Phones and narrow windows: chart on top, chapters scroll under it */
+@media (max-width: 899px) {
+  body { font-size: 1.08rem; }
+  .js .plot { height: 50vh; height: 50svh; background: var(--paper); z-index: 4; border-bottom: 1px solid var(--rule); }
+  .readout { top: 12px; bottom: auto; left: 16px; z-index: 5; }
+  .mag { font-size: 3.4rem; }
+  .span-label { margin-top: .25rem; font-size: .7rem; }
+  .lens { display: none !important; }
+  .js .chapters { padding-top: calc(50vh + 16px); padding-top: calc(50svh + 16px); }
+  .chapters { padding-left: 16px; padding-right: 16px; }
+  .ch { min-height: 78vh; }
+  .ch-hero { min-height: 70vh; }
+  .ch-end { min-height: 60vh; }
+  .card { max-width: none; }
+  .lede { font-size: 1.25rem; }
+}
+
+/* Without JavaScript, the page is plain reading */
+html:not(.js) .ch { min-height: 0; margin: 0 auto 2rem; max-width: 40rem; padding: 0 16px; }
+html:not(.js) .chapters { width: auto; margin: 3rem auto; padding: 0; }
+html:not(.js) .card { position: static; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mag { transition: none; }
+}

@@ -1,0 +1,287 @@
+/* ------------------------------------------------------------
+   One screen, many worlds.
+   A fixed stage holds a single device screen. Each project is a
+   world: as you scroll, the page takes on that app's colours,
+   the screen changes shape and plays the app's real screens,
+   and one variable typeface shifts personality with it.
+   ------------------------------------------------------------ */
+:root {
+  --bg: #e6e8eb;
+  --fg: #14171b;
+  --accent: #14171b;
+  --bezel: #0c0d0f;
+
+  --f: "Recursive", ui-sans-serif, system-ui, sans-serif;
+  --edge: clamp(20px, 4vw, 64px);
+  --copy-w: min(29rem, 36vw);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #121417; --fg: #e8eaed; --accent: #e8eaed; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #121417; --fg: #e8eaed; --accent: #e8eaed; color-scheme: dark; }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f);
+  font-size: 1.125rem;
+  line-height: 1.55;
+  font-variation-settings: "CASL" 0, "MONO" 0, "slnt" 0;
+  font-weight: 400;
+}
+a { color: inherit; text-decoration-thickness: 1.5px; text-underline-offset: .22em; }
+a:hover { text-decoration-thickness: 3px; }
+:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; border-radius: 4px; }
+img, video { max-width: 100%; display: block; }
+
+/* ------------------------------------------------------------
+   Copy (real, readable text in each world)
+   ------------------------------------------------------------ */
+.world { position: relative; }
+.copy {
+  max-width: 34rem;
+  padding: 0 var(--edge);
+}
+.copy p { margin: 0 0 1em; max-width: 30em; }
+
+.title, .name {
+  margin: 0 0 1.1rem;
+  line-height: .9;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+  font-weight: var(--w, 800);
+  font-variation-settings: "CASL" var(--casl, 0), "MONO" var(--mono, 0), "slnt" var(--slnt, 0);
+}
+.title { font-size: clamp(2.8rem, 5.4vw, 4.8rem); }
+.name { font-size: clamp(3rem, 6vw, 5.4rem); }
+.lede { font-size: 1.35rem; line-height: 1.4; }
+.nudge, .meta, .aside {
+  font-size: .92rem;
+  font-variation-settings: "MONO" 1, "CASL" 0;
+  opacity: .78;
+}
+.meta { margin-bottom: 1.1rem !important; line-height: 1.45; }
+.aside { margin-top: 1.2rem !important; }
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem 2.2rem;
+  margin: 1.6rem 0;
+}
+.facts div { display: flex; flex-direction: column-reverse; }
+.facts dt { font-size: .82rem; font-variation-settings: "MONO" 1; opacity: .75; }
+.facts dd {
+  margin: 0;
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  line-height: 1;
+  font-weight: 800;
+  font-variation-settings: "MONO" 1, "CASL" 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+.stack {
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+.stack li {
+  font-size: .82rem;
+  font-variation-settings: "MONO" 1;
+  padding: .28rem .6rem;
+  border: 1.5px solid currentColor;
+  border-radius: 99px;
+  line-height: 1.2;
+}
+.out { margin-top: 1.4rem !important; font-weight: 600; }
+.contact { list-style: none; padding: 0; margin: 1rem 0 0; font-size: 1.35rem; font-weight: 600; display: grid; gap: .4rem; }
+
+/* ------------------------------------------------------------
+   Stage
+   ------------------------------------------------------------ */
+.stage { display: none; }
+.js .stage {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.js .worlds { position: relative; z-index: 1; }
+
+.giants { position: absolute; inset: 0; }
+.giant {
+  position: absolute;
+  left: calc(var(--edge) - .06em);
+  bottom: -.2em;
+  margin: 0;
+  font-size: clamp(6rem, 19vw, 22rem);
+  line-height: 1;
+  white-space: nowrap;
+  letter-spacing: -.04em;
+  color: var(--accent);
+  opacity: 0;
+  will-change: opacity;
+}
+
+.device {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: var(--bezel);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08) inset,
+    0 40px 80px -30px rgba(0,0,0,.45),
+    0 12px 24px -12px rgba(0,0,0,.35);
+  pointer-events: auto;
+  will-change: transform, width, height;
+}
+.screen {
+  container-type: inline-size;
+  position: absolute;
+  overflow: hidden;
+  background: #000;
+  isolation: isolate;
+}
+.layer {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(3%) scale(1.01);
+  transition: opacity .45s ease, transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.layer.is-on { opacity: 1; transform: none; z-index: 1; }
+.layer img, .layer video { width: 100%; height: 100%; object-fit: cover; }
+.layer[data-fit="contain"] img { object-fit: contain; }
+.layer video[data-crop] { transform: scale(var(--crop, 1.1)); }
+
+.caption {
+  position: absolute;
+  margin: 0;
+  font-size: .82rem;
+  font-variation-settings: "MONO" 1;
+  text-align: center;
+  opacity: .8;
+  transition: opacity .3s;
+}
+
+/* Home screen, built from the real app icons */
+.home-screen {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 70% at 20% 0%, #5b6cff 0%, transparent 60%),
+    radial-gradient(110% 80% at 100% 100%, #ff7a59 0%, transparent 55%),
+    linear-gradient(160deg, #1d2140, #0d0f1c);
+  color: #fff;
+  padding: 12% 9% 0;
+}
+.hs-status { display: flex; justify-content: space-between; font: 600 .78rem/1 var(--f); padding: 0 4% 14%; }
+.hs-bars { width: 28px; height: 11px; border-radius: 3px; border: 1.5px solid #fff; opacity: .9; }
+.hs-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10% 7%;
+}
+.hs-grid a { display: grid; justify-items: center; gap: .4rem; text-decoration: none; color: #fff; }
+.hs-grid img { width: 100%; aspect-ratio: 1; border-radius: 23%; box-shadow: 0 6px 14px rgba(0,0,0,.35); }
+.hs-grid span { font-size: clamp(7px, 3.4cqw, 11px); line-height: 1.1; text-align: center; white-space: nowrap; width: 140%; overflow: hidden; text-overflow: ellipsis; }
+@container (max-width: 250px) {
+  .hs-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hs-grid span { font-size: 9px; }
+}
+.hs-grid a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+/* Unibuzz onboarding, rebuilt from the app's assets */
+.ub-slide {
+  position: absolute;
+  inset: 0;
+  background: #f9f9f9;
+  color: #222;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  padding: 0 10%;
+  gap: .7rem;
+  font-family: system-ui, -apple-system, "SF Pro Text", sans-serif;
+}
+.ub-slide img { width: 78%; height: auto; margin-bottom: 1rem; }
+.ub-h { margin: 0; font-weight: 800; font-size: 1.15rem; line-height: 1.2; }
+.ub-p { margin: 0; font-size: .82rem; line-height: 1.4; color: #525252; }
+.ub-dots { display: flex; gap: 6px; margin-top: 1.2rem; }
+.ub-dots i { width: 7px; height: 7px; border-radius: 50%; background: #ababab; }
+.ub-dots i.on { width: 20px; border-radius: 4px; background: #222; }
+.ub-dark { background: #222; color: #ffea8f; }
+.ub-dark .ub-h { font-size: 1.4rem; }
+.ub-dark img:first-child { width: 92%; margin: 0 0 .5rem; }
+.ub-jar { width: 42% !important; margin: .6rem 0 0 !important; }
+
+/* ------------------------------------------------------------
+   Layout with JS: copy on the left, screen on the right
+   ------------------------------------------------------------ */
+.js .reel { display: none; }
+.js .world { min-height: calc(var(--len, 1) * 100vh); }
+
+@media (min-width: 900px) {
+  .js .copy {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(var(--copy-w) + var(--edge) * 2);
+    max-width: none;
+    padding-block: 8vh;
+  }
+}
+
+/* Phones: the screen sits in the top half, the words scroll beneath */
+@media (max-width: 899px) {
+  body { font-size: 1rem; }
+  .js .stage { height: 50vh; height: 50svh; background: var(--bg); z-index: 2; }
+  .js .worlds { padding-top: 50vh; padding-top: 50svh; }
+  .js .world { min-height: calc(var(--len, 1) * 60vh); }
+  /* the words for each world stay put under the screen while it plays */
+  .js .copy { position: sticky; top: 50vh; top: 50svh; padding-top: 14px; }
+  .giant { display: none; }
+  .caption { display: none; }
+  .copy { padding: 1rem 20px 2rem; }
+  .copy p { margin-bottom: .7em; }
+  .title { font-size: 2.3rem; margin-bottom: .7rem; }
+  .name { font-size: 2.5rem; margin-bottom: .6rem; }
+  .lede { font-size: 1.12rem; }
+  .meta { margin-bottom: .6rem !important; }
+  .facts { margin: .9rem 0; gap: .6rem 1.4rem; }
+  .facts dd { font-size: 1.6rem; }
+  .stack { margin: .8rem 0; }
+  .out { margin-top: .8rem !important; }
+}
+
+/* Without JS: a plain, readable page with the screens inline */
+html:not(.js) .reel { display: flex; gap: 12px; overflow-x: auto; padding: 1rem var(--edge) 3rem; }
+html:not(.js) .reel > * { flex: 0 0 auto; width: 220px; margin: 0; position: relative; }
+html:not(.js) .reel img, html:not(.js) .reel video { border-radius: 14px; }
+html:not(.js) .home-screen, html:not(.js) .ub-slide { position: relative; height: 440px; border-radius: 20px; }
+html:not(.js) .world { padding-top: 3rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .layer, .caption { transition: none; }
+}
+
+/* The worlds sit over the stage; only the words take pointer input,
+   so the home-screen icons on the device stay tappable */
+.js .world { pointer-events: none; }
+.js .copy { pointer-events: auto; }
